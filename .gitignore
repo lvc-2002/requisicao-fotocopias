@@ -19,12 +19,12 @@ Servers/
 .classpath
 .project
 .settings/
-#/WebContent/META-INF
+/WebContent/META-INF
 
 RemoteSystemsTempFiles/
 
 # Configuração do Banco de Dados
-#/src/META-INF/persistence.xml
+/src/META-INF/persistence.xml
 
 # Configurações do JSF
-#/WebContent/WEB-INF/faces-config
+/WebContent/WEB-INF/faces-config
