@@ -1,0 +1,35 @@
+@CHARSET "ISO-8859-1";
+
+body{
+	margin: 0;
+	padding: 0;
+}
+
+div#header{
+	width: 100%;
+	height: 100px;
+	background: #eee;
+}
+
+div#header h1{
+	color: #333;
+	margin: auto 20px;
+	font-size: 32pt;
+}
+
+form h2#titulo{
+	margin: auto auto 0 400px;
+	color: #333;
+}
+
+div#footer{
+	width: 100%;
+	height: 60px;
+	background: #333;
+}
+
+div#footer p{
+	text-align: center;
+	font-size: 12pt;
+	color: #fff;
+}
