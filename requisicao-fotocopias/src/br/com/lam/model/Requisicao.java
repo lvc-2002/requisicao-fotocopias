@@ -1,6 +1,7 @@
 package br.com.lam.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Requisicao {
 	
@@ -8,17 +9,21 @@ public class Requisicao {
 	private String numero;
 	private Date data;
 	private int total;
+	private List<Item> itens;
+	private Status status;
 	
 	public Requisicao() {
 		super();
 	}
 
-	public Requisicao(long id, String numero, Date data, int total) {
+	public Requisicao(long id, String numero, Date data, int total, List<Item> itens, Status status) {
 		super();
 		this.id = id;
 		this.numero = numero;
 		this.data = data;
 		this.total = total;
+		this.itens = itens;
+		this.status = status;
 	}
 
 	public Requisicao(String numero, Date data, int total) {
@@ -60,6 +65,22 @@ public class Requisicao {
 		this.total = total;
 	}
 
+	public List<Item> getItens() {
+		return itens;
+	}
+	
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
+	
+	public Status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,7 +106,8 @@ public class Requisicao {
 	@Override
 	public String toString() {
 		return "Requisicao [id=" + id + ", numero=" + numero + ", data=" + data
-				+ ", total=" + total + "]";
+				+ ", total=" + total + ", itens=" + itens + ", status="
+				+ status + "]";
 	}
-	
+
 }
