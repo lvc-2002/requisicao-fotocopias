@@ -7,24 +7,31 @@ public class Contato {
 	private String celular;
 	private String email;
 	
+	private Usuario usuario;
+	
 	public Contato() {
 		super();
 	}
 
-	public Contato(long id, String telefone, String celular, String email) {
+	public Contato(long id, String telefone, String celular, String email,
+			Usuario usuario) {
 		super();
 		this.id = id;
 		this.telefone = telefone;
 		this.celular = celular;
 		this.email = email;
+		this.usuario = usuario;
 	}
 
-	public Contato(String telefone, String celular, String email) {
+	public Contato(String telefone, String celular, String email,
+			Usuario usuario) {
 		super();
 		this.telefone = telefone;
 		this.celular = celular;
 		this.email = email;
+		this.usuario = usuario;
 	}
+
 
 	public long getId() {
 		return id;
@@ -57,6 +64,15 @@ public class Contato {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	@Override
 	public int hashCode() {
@@ -83,7 +99,9 @@ public class Contato {
 	@Override
 	public String toString() {
 		return "Contato [id=" + id + ", telefone=" + telefone + ", celular="
-				+ celular + ", email=" + email + "]";
+				+ celular + ", email=" + email + ", usuario=" + usuario + "]";
 	}
+
+	
 
 }
