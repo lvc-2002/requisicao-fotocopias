@@ -1,7 +1,6 @@
 package br.com.lam.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class Usuario {
 	
