@@ -1,11 +1,36 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Página Inicial</title>
-</head>
-<body>
-	<h1>Olá, Mundo!!!</h1>
-</body>
-</html>
+<ui:composition template="/WEB-INF/templates/pagina-inicial.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:define name="consulta-requisicao">
+		<h:panelGrid
+			columns="3" style="float: right;">
+			<p:outputLabel value="NÃºmero da RequisiÃ§Ã£o" for="numero-requisicao" />
+			<p:inputMask id="numero-requisicao" mask="9999/999999" size="20"
+				style="height: 30px;" />
+			<p:commandButton value="Consultar" />
+		</h:panelGrid>
+	</ui:define>
+	
+	<ui:define name="autenticacao">
+		<h:form>
+			
+			<p:commandLink value="Cadastre-se" action="cadastraUsuario?faces-redirect=true" style="margin: 10px 20px 25px auto; text-align: center; float: right;" />
+			
+			<h:panelGrid
+				columns="1" style="margin:10px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+				<p:outputLabel value="Siape: " for="siape" />
+				<p:inputText id="siape" style="width:200px; margin: 0 auto 10px auto;" />
+				<p:outputLabel value="Senha: " for="senha" />
+				<p:password id="senha" style="width:200px; margin: 0 auto 10px auto;" />
+				<p:commandButton value="Entrar" style="width:210px; margin: auto;" />
+				<p:commandLink value="Esqueceu a Senha?" action="recuperaSenha?faces-redirect=true" style="margin: auto; text-align: center;" />
+			</h:panelGrid>
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

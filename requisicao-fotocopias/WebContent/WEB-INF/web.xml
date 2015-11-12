@@ -11,7 +11,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
+    <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <listener>
     <listener-class>br.com.lam.listeners.IniciaBDListener</listener-class>
@@ -23,6 +23,6 @@
   </filter>
   <filter-mapping>
     <filter-name>EntityManagerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/teste/*</url-pattern>
   </filter-mapping>
 </web-app>
