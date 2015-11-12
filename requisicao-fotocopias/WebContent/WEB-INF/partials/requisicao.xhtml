@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:panelGrid columns="1"
+		style="width: 600; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Número: " />
+			<p:outputLabel value="2015/000013" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Solicitante: " />
+			<p:outputLabel value="João" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Data: " />
+			<p:outputLabel value="09/11/2015" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Status: " />
+			<p:outputLabel value="Aguardando Autorização" />
+		</h:panelGrid>
+		
+		<p:dataTable value="#{testeBean.alunos}" var="a"
+			emptyMessage="Não há requisições pendentes!">
+			<p:column headerText="Item">
+				<h:outputText value="#{a.id}" />
+			</p:column>
+			<p:column headerText="Discriminação">
+				<h:outputText value="#{a.idade}" />
+			</p:column>
+			<p:column headerText="Quantidade">
+				<h:outputText value="#{a.nome}" />
+			</p:column>
+		</p:dataTable>
+		
+		<h:panelGrid columns="2" style="margin: 10px auto;">
+			<p:commandButton value="Autorizar" />
+			<p:commandButton value="Rejeitar" />
+		</h:panelGrid>
+		
+	</h:panelGrid>
+
+</ui:composition>
