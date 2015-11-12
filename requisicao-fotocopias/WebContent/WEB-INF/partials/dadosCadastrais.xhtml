@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:panelGrid
+		columns="1" style="margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+
+		<p:outputLabel value="Siape: " for="siape" />
+		<p:inputMask id="siape" mask="999999" />
+
+		<p:outputLabel value="Nome: " for="nome" />
+		<p:inputText id="nome" style="width:504px;" />
+
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Nascimento: " for="nascimento" />
+			<p:outputLabel value="Sexo: " for="sexo" />
+
+			<p:calendar id="nascimento" size="23" />
+			<p:selectOneMenu id="sexo" style="width:250px;">
+				<f:selectItem itemLabel="Masculino" itemValue="" />
+				<f:selectItem itemLabel="Feminino" itemValue="" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Setor: " for="setor" />
+			<p:outputLabel value="Função: " for="funcao" />
+			
+			<p:selectOneMenu id="setor" style="width:252px;">
+				<f:selectItem itemLabel="Direção" itemValue="" />
+				<f:selectItem itemLabel="Coordenação" itemValue="" />
+			</p:selectOneMenu>
+			<p:selectOneMenu id="funcao" style="width:252px;">
+				<f:selectItem itemLabel="Diretor" itemValue="" />
+				<f:selectItem itemLabel="Coordenador" itemValue="" />
+				<f:selectItem itemLabel="Professor" itemValue="" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Telefone: " for="telefone" />
+			<p:outputLabel value="Celular: " for="celular" />
+
+			<p:inputMask id="telefone" mask="(99) 9999-9999" style="width:245px;" />
+			<p:inputMask id="celular" mask="(99) 99999-9999" style="width:245px;" />
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<p:outputLabel value="E-mail: " for="email" />
+			<p:inputText id="email" style="width:504px;" />
+		</h:panelGrid>
+		<h:panelGrid
+			columns="2">
+			<p:outputLabel value="Senha: " for="senha" />
+			<p:outputLabel value="Confirmação: " for="confirma-senha" />
+			
+			<p:password id="senha" style="width:245px;" />
+			<p:password id="confirma-senha" style="width:245px;" />
+		</h:panelGrid>
+		<h:panelGrid
+			columns="2" style="float:right;">
+			<p:button value="Voltar" outcome="index?faces-redirect=true" />
+			<p:commandButton value="Salvar" />
+		</h:panelGrid>
+
+	</h:panelGrid>
+
+</ui:composition>
