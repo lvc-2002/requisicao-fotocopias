@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="tipo", discriminatorType=DiscriminatorType.CHAR)
+@DiscriminatorColumn(name="tipo", discriminatorType=DiscriminatorType.STRING)
 public class Usuario {
 	
 	@Id
