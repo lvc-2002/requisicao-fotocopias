@@ -3,7 +3,6 @@ package br.com.lam.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Contato {
@@ -18,30 +17,23 @@ public class Contato {
 	
 	private String email;
 	
-	@OneToOne
-	private Usuario usuario;
-	
 	public Contato() {
 		super();
 	}
 
-	public Contato(long id, String telefone, String celular, String email,
-			Usuario usuario) {
+	public Contato(long id, String telefone, String celular, String email) {
 		super();
 		this.id = id;
 		this.telefone = telefone;
 		this.celular = celular;
 		this.email = email;
-		this.usuario = usuario;
 	}
 
-	public Contato(String telefone, String celular, String email,
-			Usuario usuario) {
+	public Contato(String telefone, String celular, String email) {
 		super();
 		this.telefone = telefone;
 		this.celular = celular;
 		this.email = email;
-		this.usuario = usuario;
 	}
 
 	public long getId() {
@@ -76,14 +68,6 @@ public class Contato {
 		this.email = email;
 	}
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,7 +93,7 @@ public class Contato {
 	@Override
 	public String toString() {
 		return "Contato [id=" + id + ", telefone=" + telefone + ", celular="
-				+ celular + ", email=" + email + ", usuario=" + usuario + "]";
+				+ celular + ", email=" + email + "]";
 	}
 
 }

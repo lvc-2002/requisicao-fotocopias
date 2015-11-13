@@ -14,7 +14,7 @@ public class Setor {
 	@GeneratedValue
 	private long id;
 	
-	private String descrição;
+	private String descricao;
 	
 	@OneToMany(mappedBy="setor")
 	private List<Usuario> usuarios;
@@ -23,16 +23,16 @@ public class Setor {
 		super();
 	}
 	
-	public Setor(long id, String descrição, List<Usuario> usuarios) {
+	public Setor(long id, String descricao, List<Usuario> usuarios) {
 		super();
 		this.id = id;
-		this.descrição = descrição;
+		this.descricao = descricao;
 		this.usuarios = usuarios;
 	}
 	
-	public Setor(String descrição, List<Usuario> usuarios) {
+	public Setor(String descricao, List<Usuario> usuarios) {
 		super();
-		this.descrição = descrição;
+		this.descricao = descricao;
 		this.usuarios = usuarios;
 	}
 
@@ -60,7 +60,7 @@ public class Setor {
 
 	@Override
 	public String toString() {
-		return "Setor [id=" + id + ", descrição=" + descrição + ", usuarios="
+		return "Setor [id=" + id + ", descrição=" + descricao + ", usuarios="
 				+ usuarios + "]";
 	}
 	
