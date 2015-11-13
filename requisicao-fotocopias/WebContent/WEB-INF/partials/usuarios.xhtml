@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:panelGrid
+		columns="1" style="width: 910px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+		
+		<h:form>
+			<p:outputLabel value="Usuários" style="font-size: 20pt;" />
+		</h:form>
+		<p:dataTable
+			value="#{autorizadorBean.usuarios}"
+			var="u"
+			emptyMessage="Não há usuários cadastrados!">
+			<p:column headerText="Siape">
+				<h:outputText value="#{u.siape}" />
+			</p:column>
+			<p:column headerText="Nome">
+				<h:outputText value="#{u.nome}" />
+			</p:column>
+			<p:column headerText="Opções" style="width: 100px;">
+				<h:form style="margin: auto;">
+					<p:commandButton value="Visualizar" />
+				</h:form>
+			</p:column>
+		</p:dataTable>
+
+	</h:panelGrid>
+
+</ui:composition>
