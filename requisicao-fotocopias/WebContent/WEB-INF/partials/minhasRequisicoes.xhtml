@@ -5,16 +5,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:panelGrid
-		columns="1" style="width: 910px; margin: 0 auto; padding: 20px; ">
+		columns="1" style="width: 910px; margin: 0 auto; padding: 20px;">
 		
 		<h:form>
-			<p:outputLabel value="Requisições Pendentes" style="font-size: 20pt;" />
-			<p:commandLink value="Todas as Requisições" actionListener="#{autorizadorBean.mostraTodasRequisicoes()}" update=":conteudo :conteudo" style="float: right;" />
+			<p:outputLabel value="Minhas Requisições" style="font-size: 20pt;" />
 		</h:form>
 		<p:dataTable
 			value="#{autorizadorBean.requisicoes}"
 			var="r"
-			emptyMessage="Não há requisições pendentes!">
+			emptyMessage="Não há requisições!">
 			<p:column headerText="Data">
 				<h:outputText value="#{r.data}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -23,21 +22,16 @@
 			<p:column headerText="Número">
 				<h:outputText value="#{r.numero}" />
 			</p:column>
-			<p:column headerText="Solicitante">
-				<h:outputText value="#{r.usuario.nome}" />
+			<p:column headerText="Status">
+				<h:outputText value="#{r.status.valor}" />
 			</p:column>
 			<p:column headerText="Opções" style="width: 100px;">
 				<h:form style="margin: auto;">
-					<p:commandButton value="Visualizar" actionListener="#{autorizadorBean.mostraRequisicao(1)}" type="button" onclick="dlg2.show();" />
+					<p:commandButton value="Visualizar" />
 				</h:form>
 			</p:column>
 		</p:dataTable>
 
 	</h:panelGrid>
 	
-	<p:dialog header="Requisição de Fotocópias" widgetVar="dlg2" modal="true"
-		width="600" height="400">
-		<ui:include src="/WEB-INF/partials/requisicao.xhtml" />
-	</p:dialog>
-
 </ui:composition>

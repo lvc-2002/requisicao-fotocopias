@@ -5,35 +5,42 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:panelGrid
-		columns="1" style="width: 910px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+		columns="1" style="width: 910px; margin: 0 auto; padding: 20px; ">
 		
 		<h:form>
 			<p:outputLabel value="Todas as Requisições" style="font-size: 20pt;" />
-			<p:commandLink value="Requisições Pendentes" style="float: right;" />
+			<p:commandLink value="Requisições Pendentes" actionListener="#{autorizadorBean.mostraRequisicoesPendentes()}" update=":conteudo :conteudo" style="float: right;" />
 		</h:form>
 		<p:dataTable
-			value="#{testeBean.alunos}"
-			var="a"
+			value="#{autorizadorBean.requisicoes}"
+			var="r"
 			emptyMessage="Não há requisições pendentes!">
 			<p:column headerText="Data">
-				<h:outputText value="#{a.id}" />
+				<h:outputText value="#{r.data}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
 			</p:column>
 			<p:column headerText="Número">
-				<h:outputText value="#{a.idade}" />
+				<h:outputText value="#{r.numero}" />
 			</p:column>
 			<p:column headerText="Solicitante">
-				<h:outputText value="#{a.nome}" />
+				<h:outputText value="#{r.usuario.nome}" />
 			</p:column>
 			<p:column headerText="Status">
-				<h:outputText value="#{a.nome}" />
+				<h:outputText value="#{r.status.valor}" />
 			</p:column>
 			<p:column headerText="Opções" style="width: 100px;">
 				<h:form style="margin: auto;">
-					<p:commandButton value="Visualizar" />
+					<p:commandButton value="Visualizar" actionListener="#{autorizadorBean.mostraRequisicao(1)}" type="button" onclick="dlg2.show();" />
 				</h:form>
 			</p:column>
 		</p:dataTable>
 
 	</h:panelGrid>
+	
+	<p:dialog header="Requisição de Fotocópias" widgetVar="dlg2" modal="true"
+		width="600" height="400">
+		<ui:include src="/WEB-INF/partials/requisicao.xhtml" />
+	</p:dialog>
 
 </ui:composition>
