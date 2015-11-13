@@ -5,29 +5,43 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
+	
 	<ui:define name="barra-de-menus">
-
 		<h:form>
-			<p:toolbar style="width: 900px; margin: 10px auto;">
+			<p:toolbar style="width: 990px; margin: 10px auto;">
 				<p:toolbarGroup>
-					<p:commandButton value="Início" />
-					<p:commandButton value="Minhas Requisições" />
-					<p:commandButton value="Fazer Requisição" />
-					<p:commandButton value="Usuários" />
-					<p:commandButton value="Meus Dados" />
+					<p:commandButton value="Início"
+						action="#{autorizadorBean.mostraRequisicoesPendentes()}"
+						update=":conteudo" />
+						
+					<p:commandButton value="Minhas Requisições"
+						action="#{autorizadorBean.mostraMinhasRequisicoes()}"
+						update=":conteudo" />
+						
+					<p:commandButton value="Fazer Requisição"
+						action="#{autorizadorBean.mostraFazerRequisicao()}"
+						update=":conteudo" />
+					
+					<p:commandButton value="Usuários"
+						action="#{autorizadorBean.mostraUsuarios()}"
+						update=":conteudo" />
+						
+					<p:commandButton value="Meus Dados"
+						action="#{autorizadorBean.mostraMeusDados()}"
+						update=":conteudo" />
+						
 				</p:toolbarGroup>
 				<p:toolbarGroup style="float: right;">
 					<p:commandButton value="Sair" action="index?faces-redirect=true" />
 				</p:toolbarGroup>
 			</p:toolbar>
 		</h:form>
-
 	</ui:define>
 	
 	<ui:define name="conteudo">
-		<h:form>
-			<ui:include src="/WEB-INF/partials/requisicoesPendentes.xhtml" />
+		<h:form id="conteudo">
+			<ui:include src="#{autorizadorBean.conteudo}" />
 		</h:form>
 	</ui:define>
-	
+
 </ui:composition>
