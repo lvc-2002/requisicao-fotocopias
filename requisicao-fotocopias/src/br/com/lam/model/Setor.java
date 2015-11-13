@@ -2,17 +2,26 @@ package br.com.lam.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Setor {
 	
+	@Id
+	@GeneratedValue
 	private long id;
+	
 	private String descrição;
 	
+	@OneToMany(mappedBy="setor")
 	private List<Usuario> usuarios;
 	
 	public Setor() {
 		super();
 	}
-	
 	
 	public Setor(long id, String descrição, List<Usuario> usuarios) {
 		super();
@@ -21,13 +30,11 @@ public class Setor {
 		this.usuarios = usuarios;
 	}
 	
-
 	public Setor(String descrição, List<Usuario> usuarios) {
 		super();
 		this.descrição = descrição;
 		this.usuarios = usuarios;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -51,13 +58,10 @@ public class Setor {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Setor [id=" + id + ", descrição=" + descrição + ", usuarios="
 				+ usuarios + "]";
 	}
 	
-	
-
 }

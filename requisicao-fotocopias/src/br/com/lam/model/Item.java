@@ -1,11 +1,24 @@
 package br.com.lam.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Item {
 	
+	@Id
+	@GeneratedValue
 	private long id;
+	
 	private int numero;
+	
 	private String discriminacao;
+	
 	private int quantidade;
+	
+	@ManyToOne
 	private Requisicao requisicao;
 	
 	public Item() {

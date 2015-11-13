@@ -2,29 +2,56 @@ package br.com.lam.model;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipo", discriminatorType=DiscriminatorType.CHAR)
 public class Usuario {
 	
+	@Id
+	@GeneratedValue
 	private long id;
-	private String siape;
-	private String nome;
-	private Date dataNascimento;
-	private String sexo;
-	private int ativo;
 	
+	private String siape;
+	
+	private String nome;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
+	
+	@Enumerated(EnumType.ORDINAL)
+	private Sexo sexo;
+	
+	private boolean ativo;
+	
+	@ManyToOne
 	private Funcao funcao;
 	
+	@ManyToOne
 	private Setor setor;
 	
+	@OneToOne
 	private Contato contato;
 	
 	public Usuario() {
 		super();
 	}
 
-	
-
 	public Usuario(long id, String siape, String nome, Date dataNascimento,
-			String sexo, int ativo, Funcao funcao, Setor setor,
+			Sexo sexo, boolean ativo, Funcao funcao, Setor setor,
 			Contato contato) {
 		super();
 		this.id = id;
@@ -38,8 +65,8 @@ public class Usuario {
 		this.contato = contato;
 	}
 
-	public Usuario(String siape, String nome, Date dataNascimento, String sexo,
-			int ativo, Funcao funcao, Setor setor, Contato contato) {
+	public Usuario(String siape, String nome, Date dataNascimento, Sexo sexo,
+			boolean ativo, Funcao funcao, Setor setor, Contato contato) {
 		super();
 		this.siape = siape;
 		this.nome = nome;
@@ -84,19 +111,19 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 
-	public int getAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(int ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 
@@ -108,25 +135,17 @@ public class Usuario {
 		this.contato = contato;
 	}
 	
-	
-
 	public Funcao getFuncao() {
 		return funcao;
 	}
-
-
 
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
 	}
 
-
-
 	public Setor getSetor() {
 		return setor;
 	}
-
-
 
 	public void setSetor(Setor setor) {
 		this.setor = setor;
@@ -154,8 +173,6 @@ public class Usuario {
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", siape=" + siape + ", nome=" + nome
@@ -165,6 +182,4 @@ public class Usuario {
 				"]";
 	}
 	
-	
-
 }

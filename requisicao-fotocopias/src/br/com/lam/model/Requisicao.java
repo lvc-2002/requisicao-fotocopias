@@ -3,14 +3,39 @@ package br.com.lam.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+@Entity
 public class Requisicao {
 	
+	@Id
+	@GeneratedValue
 	private long id;
+	
 	private String numero;
+	
+	@Temporal(TemporalType.DATE)
 	private Date data;
+	
+	@Transient
 	private int total;
+	
+	@OneToMany(mappedBy="requisicao")
 	private List<Item> itens;
+	
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@ManyToOne
 	private Usuario usuario;
 	
 	public Requisicao() {
@@ -119,7 +144,5 @@ public class Requisicao {
 				+ ", total=" + total + ", itens=" + itens + ", status="
 				+ status + ", usuario=" + usuario + "]";
 	}
-
-	
 
 }

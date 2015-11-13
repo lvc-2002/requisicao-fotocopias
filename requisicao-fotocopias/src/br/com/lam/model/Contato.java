@@ -1,12 +1,24 @@
 package br.com.lam.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Contato {
 	
+	@Id
+	@GeneratedValue
 	private long id;
+	
 	private String telefone;
+	
 	private String celular;
+	
 	private String email;
 	
+	@OneToOne
 	private Usuario usuario;
 	
 	public Contato() {
@@ -31,7 +43,6 @@ public class Contato {
 		this.email = email;
 		this.usuario = usuario;
 	}
-
 
 	public long getId() {
 		return id;
@@ -65,7 +76,6 @@ public class Contato {
 		this.email = email;
 	}
 	
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -101,7 +111,5 @@ public class Contato {
 		return "Contato [id=" + id + ", telefone=" + telefone + ", celular="
 				+ celular + ", email=" + email + ", usuario=" + usuario + "]";
 	}
-
-	
 
 }

@@ -2,14 +2,23 @@ package br.com.lam.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Funcao {
 	
+	@Id
+	@GeneratedValue
 	private long id;
+	
 	private String descricao;
 	
+	@OneToMany(mappedBy="funcao")
 	private List<Usuario> usuarios;
 	
-
 	public Funcao() {
 		super();
 	}
@@ -79,6 +88,4 @@ public class Funcao {
 				+ usuarios + "]";
 	}
 	
-	
-
 }
