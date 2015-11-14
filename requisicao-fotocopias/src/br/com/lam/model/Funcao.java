@@ -84,8 +84,7 @@ public class Funcao {
 
 	@Override
 	public String toString() {
-		return "Funcao [id=" + id + ", descricao=" + descricao + ", usuarios="
-				+ usuarios + "]";
+		return "Funcao [id=" + id + ", descricao=" + descricao + "]";
 	}
-	
+
 }

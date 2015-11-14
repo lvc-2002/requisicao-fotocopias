@@ -60,8 +60,7 @@ public class Setor {
 
 	@Override
 	public String toString() {
-		return "Setor [id=" + id + ", descrição=" + descricao + ", usuarios="
-				+ usuarios + "]";
+		return "Setor [id=" + id + ", descricao=" + descricao + "]";
 	}
 	
 }
