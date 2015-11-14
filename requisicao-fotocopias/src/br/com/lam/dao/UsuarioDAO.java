@@ -46,6 +46,14 @@ public class UsuarioDAO extends DAO implements GenericDAO<Usuario>{
 		return em.createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}
 	
-	
+	public Usuario pesquisa(String siape, String senha) {
+		List<Usuario> usuarios = lista();
+		for(Usuario u : usuarios) {
+			if(u.getSiape().equals(siape) && u.getSenha().equals(senha)) {
+				return u;
+			}
+		}
+		return null;
+	}
 
 }
