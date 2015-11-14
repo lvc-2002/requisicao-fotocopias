@@ -2,16 +2,14 @@ package br.com.lam.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,27 +30,22 @@ public class Usuario {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
-	@Enumerated(EnumType.ORDINAL)
-	private Sexo sexo;
+	private char sexo;
 	
 	private boolean ativo;
 	
-	@ManyToOne
-	private Funcao funcao;
-	
-	@ManyToOne
-	private Setor setor;
-	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Contato contato;
+	
+	private String senha;
 	
 	public Usuario() {
 		super();
+		contato = new Contato();
 	}
 
 	public Usuario(long id, String siape, String nome, Date dataNascimento,
-			Sexo sexo, boolean ativo, Funcao funcao, Setor setor,
-			Contato contato) {
+			char sexo, boolean ativo, Contato contato, String senha) {
 		super();
 		this.id = id;
 		this.siape = siape;
@@ -60,22 +53,19 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.ativo = ativo;
-		this.funcao = funcao;
-		this.setor = setor;
 		this.contato = contato;
+		this.senha = senha;
 	}
 
-	public Usuario(String siape, String nome, Date dataNascimento, Sexo sexo,
-			boolean ativo, Funcao funcao, Setor setor, Contato contato) {
+	public Usuario(String siape, String nome, Date dataNascimento, char sexo, boolean ativo, Contato contato, String senha) {
 		super();
 		this.siape = siape;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 		this.ativo = ativo;
-		this.funcao = funcao;
-		this.setor = setor;
 		this.contato = contato;
+		this.senha = senha;
 		
 	}
 
@@ -111,14 +101,14 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Sexo getSexo() {
+	public char getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(Sexo sexo) {
+	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
-
+	
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -135,22 +125,14 @@ public class Usuario {
 		this.contato = contato;
 	}
 	
-	public Funcao getFuncao() {
-		return funcao;
+	public String getSenha() {
+		return senha;
 	}
-
-	public void setFuncao(Funcao funcao) {
-		this.funcao = funcao;
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
-
-	public Setor getSetor() {
-		return setor;
-	}
-
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -177,9 +159,8 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", siape=" + siape + ", nome=" + nome
 				+ ", dataNascimento=" + dataNascimento + ", sexo=" + sexo
-				+ ", ativo=" + ativo + ", funcao=" + funcao + ", setor="
-				+ setor + ", contato=" + contato +
-				"]";
+				+ ", ativo=" + ativo + ", contato=" + contato + ", senha="
+				+ senha + "]";
 	}
-	
+
 }
