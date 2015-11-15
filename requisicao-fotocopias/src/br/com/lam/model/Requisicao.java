@@ -1,5 +1,6 @@
 package br.com.lam.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class Requisicao {
 	
 	public Requisicao() {
 		super();
+		itens = new ArrayList<Item>();
 	}
 
 	public Requisicao(long id, String numero, Date data, int total, List<Item> itens, Status status, Usuario usuario ) {

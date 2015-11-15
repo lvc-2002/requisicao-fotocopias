@@ -1,5 +1,6 @@
 package br.com.lam.control;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import br.com.lam.dao.UsuarioDAO;
 import br.com.lam.model.Autorizador;
 import br.com.lam.model.Executante;
+import br.com.lam.model.Item;
 import br.com.lam.model.Requisicao;
 import br.com.lam.model.Usuario;
 import br.com.lam.util.JPAUtil;
@@ -36,12 +38,15 @@ public class AutorizadorBean {
 	
 	private List<Requisicao> requisicoes;
 	private Requisicao requisicao;
+	private Item item;
 	
 	private List<Usuario> usuarios;
 	private Usuario usuario;
 	private String confirmaSenha;
 	
 	public AutorizadorBean() {
+		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		usuarioLogado = (Usuario) sessao.getAttribute("usuario");
 		setConteudo(REQUISICOES_PENDENTES);
 	}
 	
@@ -83,6 +88,14 @@ public class AutorizadorBean {
 	
 	public void setRequisicao(Requisicao requisicao) {
 		this.requisicao = requisicao;
+	}
+	
+	public Item getItem() {
+		return item;
+	}
+	
+	public void setItem(Item item) {
+		this.item = item;
 	}
 	
 	public List<Usuario> getUsuarios() {
@@ -127,6 +140,8 @@ public class AutorizadorBean {
 	}
 	
 	public void mostraFazerRequisicao() {
+		requisicao = new Requisicao();
+		item = new Item();
 		setConteudo(FAZER_REQUISICAO);
 	}
 	
@@ -137,13 +152,21 @@ public class AutorizadorBean {
 	}
 	
 	public void mostraMeusDados() {
-		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		usuarioLogado = (Usuario) sessao.getAttribute("usuario");
 		setConteudo(MEUS_DADOS);
 	}
 	
 	
 	// Ações da tela
+	public void adicionaItemRequisicao() {
+		item.setRequisicao(requisicao);
+		item.setNumero(requisicao.getItens().size() + 1);
+		requisicao.getItens().add(item);
+		int j = requisicao.getTotal();
+		j = j + item.getQuantidade();
+		requisicao.setTotal(j);
+		item = new Item();
+	}
+	
 	public void preparaNovoAtendente() {
 		usuario = new Executante();
 		setConteudo(NOVO_USUARIO);
@@ -212,10 +235,15 @@ public class AutorizadorBean {
 	
 	public String sair() {
 		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		sessao.removeAttribute("usuario");
+		sessao.invalidate();
 		return "index?faces-redirect=true";
 	}
 	
+	
+	// Métodos auxiliares
+	public Date createDataAtual() {
+		return new Date();
+	}
 	
 	// Método gerador de EntityManager
 	private EntityManager getEntityManager(){
