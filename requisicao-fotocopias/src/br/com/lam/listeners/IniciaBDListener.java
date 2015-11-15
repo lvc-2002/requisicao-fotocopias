@@ -2,9 +2,10 @@ package br.com.lam.listeners;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import br.com.lam.util.JPAUtil;
 
 public class IniciaBDListener implements ServletContextListener {
 
@@ -13,9 +14,7 @@ public class IniciaBDListener implements ServletContextListener {
     }
     
     public void contextInitialized(ServletContextEvent arg0)  {
-    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("requisicao-fotocopias");
-    	EntityManager em = emf.createEntityManager();
-    	arg0.getServletContext().setAttribute("em", em);
+    	arg0.getServletContext().setAttribute("em", JPAUtil.getEntityManager());
     }
 
     public void contextDestroyed(ServletContextEvent arg0)  { 
