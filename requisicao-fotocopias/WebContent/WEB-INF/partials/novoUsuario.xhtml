@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:panelGrid columns="1"
+		style="width: 400px; margin: 0 auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+
+		<p:messages autoUpdate="true" closable="true" showDetail="true" />
+
+		<p:outputLabel value="Siape: " for="siape" />
+		<p:inputMask id="siape" mask="999999"
+			value="#{bean.usuario.siape}" style="width: 200px;" />
+
+		<p:outputLabel value="Nome: " for="nome" />
+		<p:inputText id="nome" value="#{bean.usuario.nome}"
+			style="width:420px;" />
+
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Nascimento: " for="nascimento" />
+			<p:outputLabel value="Sexo: " for="sexo" />
+
+			<p:calendar id="nascimento"
+				value="#{bean.usuario.dataNascimento}" size="18" />
+			<p:selectOneMenu id="sexo" value="#{bean.usuario.sexo}"
+				var="s" style="width:210px;">
+				<f:selectItem itemValue="M" itemLabel="Masculino" />
+				<f:selectItem itemValue="F" itemLabel="Feminino" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Telefone: " for="telefone" />
+			<p:outputLabel value="Celular: " for="celular" />
+
+			<p:inputMask id="telefone" mask="(99) 9999-9999"
+				value="#{bean.usuario.contato.telefone}"
+				style="width:200px;" />
+			<p:inputMask id="celular" mask="(99) 99999-9999"
+				value="#{bean.usuario.contato.celular}"
+				style="width:200px;" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<p:outputLabel value="E-mail: " for="email" />
+			<p:inputText id="email"
+				value="#{bean.usuario.contato.email}"
+				style="width:414px;" />
+
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Senha: " for="senha" />
+			<p:outputLabel value="Confirmação: " for="confirma-senha" />
+
+			<p:password id="senha" value="#{bean.usuario.senha}"
+				style="width:200px;" />
+			<p:password id="confirma-senha"
+				value="#{bean.confirmaSenha}" style="width:200px;" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="2" style="float: right;">
+			<p:button value="Voltar" outcome="index?faces-redirect=true" rendered="" />
+			<p:commandButton value="Salvar"
+				action="#{bean.salvaUsuario()}" />
+		</h:panelGrid>
+
+	</h:panelGrid>
+
+</ui:composition>

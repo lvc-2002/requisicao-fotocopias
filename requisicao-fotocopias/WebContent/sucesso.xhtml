@@ -1,0 +1,18 @@
+<ui:composition template="/WEB-INF/templates/main.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:define name="conteudo">
+		
+		<h:form>
+			<h2>Parabéns, seu cadastro foi realizado com sucesso!</h2>
+			<h2>Aguarde a autorização do seu cadastro por um autorizador para poder acessar o sistema.</h2>
+			<p:button value="Página Inicial" outcome="index?faces-redirect=true" />
+		</h:form>
+		
+	</ui:define>
+	
+</ui:composition>
