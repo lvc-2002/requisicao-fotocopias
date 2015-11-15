@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	
+
 	<ui:define name="barra-de-menus">
 		<h:form>
 			<p:toolbar style="width: 990px; margin: 10px auto;">
@@ -13,34 +13,44 @@
 					<p:commandButton value="Início"
 						action="#{autorizadorBean.mostraRequisicoesPendentes()}"
 						update=":conteudo" />
-						
+
 					<p:commandButton value="Minhas Requisições"
 						action="#{autorizadorBean.mostraMinhasRequisicoes()}"
 						update=":conteudo" />
-						
+
 					<p:commandButton value="Fazer Requisição"
 						action="#{autorizadorBean.mostraFazerRequisicao()}"
 						update=":conteudo" />
-					
+
 					<p:commandButton value="Usuários"
 						action="#{autorizadorBean.mostraUsuarios()}"
 						update=":conteudo" />
-						
+
+					<p:menuButton value="Novo">
+						<p:menuitem value="Atendente"
+							action="#{autorizadorBean.preparaNovoAtendente()}"
+							update=":conteudo" />
+						<p:menuitem value="Autorizador"
+							action="#{autorizadorBean.preparaNovoAutorizador()}"
+							update=":conteudo" />
+					</p:menuButton>
+					
 					<p:commandButton value="Meus Dados"
-						action="#{autorizadorBean.mostraMeusDados()}"
-						update=":conteudo" />
-						
+						action="#{autorizadorBean.mostraMeusDados()}" update=":conteudo" />
+
 				</p:toolbarGroup>
 				<p:toolbarGroup style="float: right;">
-					<p:commandButton value="Sair" action="index?faces-redirect=true" />
+					<p:commandButton value="Sair" action="#{autorizadorBean.sair()}" />
 				</p:toolbarGroup>
 			</p:toolbar>
 		</h:form>
 	</ui:define>
-	
+
 	<ui:define name="conteudo">
 		<h:form id="conteudo">
-			<ui:include src="#{autorizadorBean.conteudo}" />
+			<ui:include src="#{autorizadorBean.conteudo}">
+				<ui:param name="bean" value="#{autorizadorBean}" />
+			</ui:include>
 		</h:form>
 	</ui:define>
 

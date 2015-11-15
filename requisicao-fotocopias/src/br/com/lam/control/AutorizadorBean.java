@@ -1,19 +1,20 @@
 package br.com.lam.control;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 
 import br.com.lam.dao.UsuarioDAO;
+import br.com.lam.model.Autorizador;
+import br.com.lam.model.Executante;
 import br.com.lam.model.Requisicao;
-import br.com.lam.model.Sexo;
-import br.com.lam.model.Status;
 import br.com.lam.model.Usuario;
+import br.com.lam.util.JPAUtil;
+import br.com.lam.util.MessagesUtil;
 
 @ManagedBean
 @SessionScoped
@@ -25,7 +26,11 @@ public class AutorizadorBean {
 	private static final String MINHAS_REQUISICOES = "/WEB-INF/partials/minhasRequisicoes.xhtml";
 	private static final String FAZER_REQUISICAO = "/WEB-INF/partials/cadastroRequisicao.xhtml";
 	private static final String USUARIOS = "/WEB-INF/partials/usuarios.xhtml";
+	private static final String NOVO_USUARIO = "/WEB-INF/partials/novoUsuario.xhtml";
 	private static final String MEUS_DADOS = "/WEB-INF/partials/dadosCadastrais.xhtml";
+	
+	private Usuario usuarioLogado;
+	private String novaSenha;
 	
 	private String conteudo;
 	
@@ -33,12 +38,27 @@ public class AutorizadorBean {
 	private Requisicao requisicao;
 	
 	private List<Usuario> usuarios;
+	private Usuario usuario;
+	private String confirmaSenha;
 	
 	public AutorizadorBean() {
-		requisicoes = new ArrayList<Requisicao>();
-		requisicoes.add(new Requisicao(1, "2015/000001", new Date(), 1, null, Status.AGUARDANDO_AUTORIZACAO, new Usuario("12345", "Lázaro Vasconcelos Coutinho", new Date(), Sexo.M, true, null, null, null)));
-		requisicoes.add(new Requisicao(2, "2015/000002", new Date(), 2, null, Status.AUTORIZADA, new Usuario("12346", "Artur Vasconcelos Coutinho", new Date(), Sexo.M, true, null, null, null)));
 		setConteudo(REQUISICOES_PENDENTES);
+	}
+	
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+	
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
+	
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+	
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
 	}
 	
 	public String getConteudo() {
@@ -73,6 +93,21 @@ public class AutorizadorBean {
 		this.usuarios = usuarios;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+	
+	public void setConfirmaSenha(String confirmaSenha) {
+		this.confirmaSenha = confirmaSenha;
+	}
 	
 	// Métodos que alteram o conteúdo da tela do Autorizador
 	public void mostraRequisicoesPendentes() {
@@ -102,22 +137,84 @@ public class AutorizadorBean {
 	}
 	
 	public void mostraMeusDados() {
+		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		usuarioLogado = (Usuario) sessao.getAttribute("usuario");
 		setConteudo(MEUS_DADOS);
 	}
 	
 	
-	// Métodos auxiliares
-	/*public boolean isRequisicoesPendentes() {
-		return tipoRequisicao == REQUISICOES_PENDENTES;
+	// Ações da tela
+	public void preparaNovoAtendente() {
+		usuario = new Executante();
+		setConteudo(NOVO_USUARIO);
 	}
 	
-	public boolean isTodasRequisicoes() {
-		return tipoRequisicao == TODAS_REQUISICOES;
+	public void preparaNovoAutorizador() {
+		usuario = new Autorizador();
+		setConteudo(NOVO_USUARIO);
 	}
 	
-	public boolean isMinhasRequisicoes() {
-		return tipoRequisicao == MINHAS_REQUISICOES;
-	}*/
+	public void autorizarUsuario(long id) {
+		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
+		Usuario u = dao.pesquisa(id);
+		u.setAtivo(true);
+		JPAUtil.getEntityManager().getTransaction().begin();
+		dao.atualiza(u);
+		JPAUtil.getEntityManager().getTransaction().commit();
+		MessagesUtil.createMessageInfo(null, "Usuário autorizado!", null);
+	}
+	
+	public void rejeitarUsuario(long id) {
+		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
+		Usuario u = dao.pesquisa(id);
+		JPAUtil.getEntityManager().getTransaction().begin();
+		dao.exclui(u);
+		usuarios.remove(u);
+		JPAUtil.getEntityManager().getTransaction().commit();
+		MessagesUtil.createMessageInfo(null, "Usuário rejeitado!", null);
+	}
+	
+	public void desativarUsuario(long id) {
+		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
+		Usuario u = dao.pesquisa(id);
+		u.setAtivo(false);
+		JPAUtil.getEntityManager().getTransaction().begin();
+		dao.atualiza(u);
+		JPAUtil.getEntityManager().getTransaction().commit();
+		MessagesUtil.createMessageInfo(null, "Usuário desativado!", null);
+	}
+	
+	public void salvaUsuario() {
+		JPAUtil.getEntityManager().getTransaction().begin();
+		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
+		usuario.setAtivo(true);
+		dao.salva(usuario);
+		JPAUtil.getEntityManager().getTransaction().commit();
+		MessagesUtil.createMessageInfo(null, "Usuário cadastrado com sucesso!", null);
+	}
+	
+	public void alteraDadosCadastrais() {
+		JPAUtil.getEntityManager().getTransaction().begin();
+		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
+		dao.atualiza(usuarioLogado);
+		JPAUtil.getEntityManager().getTransaction().commit();MessagesUtil.createMessageInfo(null, "Dados alterados com sucesso!", null);
+	}
+	
+	public void alteraSenha() {
+		/*JPAUtil.getEntityManager().getTransaction().begin();
+		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
+		usuarioLogado.setSenha(novaSenha);
+		dao.atualiza(usuarioLogado);
+		JPAUtil.getEntityManager().getTransaction().commit();
+		MessagesUtil.createMessageInfo(null, "Senha alterada com sucesso!", null);*/
+		System.out.println("oi");
+	}
+	
+	public String sair() {
+		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		sessao.removeAttribute("usuario");
+		return "index?faces-redirect=true";
+	}
 	
 	
 	// Método gerador de EntityManager
