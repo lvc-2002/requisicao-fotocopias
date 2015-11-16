@@ -5,6 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:panelGrid columns="2" style="margin: 0 auto; padding: 20px;">
+	
+		<p:messages autoUpdate="true" closable="true" />
 
 		<h:panelGrid columns="1">
 			<h:panelGrid columns="2">
@@ -51,6 +53,8 @@
 		</p:dataTable>
 		
 		<p:inputText value="#{autorizadorBean.requisicao.total}" />
+		
+		<p:commandButton value="Salvar" action="#{autorizadorBean.salvaRequisicao()}" update=":conteudo" />
 
 	</h:panelGrid>
 

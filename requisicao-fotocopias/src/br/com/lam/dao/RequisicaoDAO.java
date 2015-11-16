@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-public class Requisicao extends DAO implements GenericDAO<Requisicao> {
+import br.com.lam.model.Requisicao;
 
-	public Requisicao(EntityManager em) {
+public class RequisicaoDAO extends DAO implements GenericDAO<Requisicao> {
+
+	public RequisicaoDAO(EntityManager em) {
 		super(em);
 		// TODO Auto-generated constructor stub
 	}

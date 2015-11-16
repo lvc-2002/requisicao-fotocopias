@@ -9,11 +9,13 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
+import br.com.lam.dao.RequisicaoDAO;
 import br.com.lam.dao.UsuarioDAO;
 import br.com.lam.model.Autorizador;
 import br.com.lam.model.Executante;
 import br.com.lam.model.Item;
 import br.com.lam.model.Requisicao;
+import br.com.lam.model.Status;
 import br.com.lam.model.Usuario;
 import br.com.lam.util.JPAUtil;
 import br.com.lam.util.MessagesUtil;
@@ -128,6 +130,8 @@ public class AutorizadorBean {
 	}
 	
 	public void mostraTodasRequisicoes() {
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		requisicoes = dao.lista();
 		setConteudo(TODAS_REQUISICOES);
 	}
 	
@@ -165,6 +169,17 @@ public class AutorizadorBean {
 		j = j + item.getQuantidade();
 		requisicao.setTotal(j);
 		item = new Item();
+	}
+	
+	public void salvaRequisicao() {
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		JPAUtil.getEntityManager().getTransaction().begin();
+		requisicao.setData(createDataAtual());
+		requisicao.setStatus(Status.AGUARDANDO_AUTORIZACAO);
+		requisicao.setUsuario(usuarioLogado);
+		dao.salva(requisicao);
+		JPAUtil.getEntityManager().getTransaction().commit();
+		MessagesUtil.createMessageInfo(null, "Requisição cadastrada com sucesso!", null);
 	}
 	
 	public void preparaNovoAtendente() {
