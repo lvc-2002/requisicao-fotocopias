@@ -1,5 +1,7 @@
 package br.com.lam.util;
 
+import br.com.lam.model.Usuario;
+
 public class Main {
 	
 	public static void main(String[] args) {
@@ -7,6 +9,7 @@ public class Main {
 		System.out.println(u);*/
 		
 		//System.out.println(Sexo.F.valor);
+		
 		
 	}
 
