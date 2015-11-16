@@ -151,7 +151,7 @@ public class AutorizadorBean {
 	
 	public void mostraUsuarios() {
 		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
-		usuarios = dao.lista();
+		usuarios = dao.lista(usuarioLogado);
 		setConteudo(USUARIOS);
 	}
 	
