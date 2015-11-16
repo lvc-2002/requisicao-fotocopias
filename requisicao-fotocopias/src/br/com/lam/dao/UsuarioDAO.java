@@ -52,5 +52,12 @@ public class UsuarioDAO extends DAO implements GenericDAO<Usuario>{
 		q.setParameter("siape", siape);
 		return (Usuario) q.getSingleResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> lista(Usuario u){
+		Query q = em.createQuery("select u from Usuario u where u.id != :id");
+		q.setParameter("id", u.getId());
+		return q.getResultList();
+	}
 
 }
