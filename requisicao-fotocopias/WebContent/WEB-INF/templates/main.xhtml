@@ -16,6 +16,7 @@
 	
 	<div id="header">
 		<h1>Sistema de Requisição de Fotocópias</h1>
+		<p:outputLabel value="Bem vindo(a), #{sessionScope.usuario.nome}" style="margin: 10px;" />
 	</div>
 	
 	<div id="menus">
@@ -23,7 +24,7 @@
 	</div>
 	
 	<div id="body">
-		<p:layout style="width:1000px; height:400px; margin: 10px auto;">
+		<p:layout style="width:1000px; height:500px; margin: 10px auto;">
 			<p:layoutUnit position="center">
 				<ui:insert name="conteudo" />
 			</p:layoutUnit>

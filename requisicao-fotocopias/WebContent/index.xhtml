@@ -15,15 +15,31 @@
 	<ui:define name="autenticacao">
 		<h:form>
 			
-			<p:commandLink value="Cadastre-se" action="cadastraUsuario?faces-redirect=true" style="margin: 10px 20px 25px auto; text-align: center; float: right;" />
-			
+			<!--<p:commandLink value="Cadastre-se" action="#{paginaInicialBean}" style="margin: 10px 20px 25px auto; text-align: center; float: right;" />-->
+			<h:link value="Cadastre-se" outcome="cadastraUsuario?faces-refirect=true"/>
 			<h:panelGrid
 				columns="1" style="margin:10px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+				
+				<p:messages autoUpdate="true" globalOnly="true" />
 				<p:outputLabel value="Siape: " for="siape" />
-				<p:inputText id="siape" style="width:200px; margin: 0 auto 10px auto;" />
+				<p:inputText
+					id="siape"
+					value="#{paginaInicialBean.siape}"
+					required="true"
+					requiredMessage="Informe o Siape."
+					style="width:200px; margin: 0 auto 10px auto;" />
+				<p:message for="siape"/>
+				
 				<p:outputLabel value="Senha: " for="senha" />
-				<p:password id="senha" style="width:200px; margin: 0 auto 10px auto;" />
-				<p:commandButton value="Entrar" action="autorizador?faces-redirect=true" style="width:210px; margin: auto;" />
+				<p:password
+					id="senha"
+					value="#{paginaInicialBean.senha}"
+					required="true"
+					requiredMessage="Informe a Senha."
+					style="width:200px; margin: 0 auto 10px auto;" />
+				<p:message for="senha"/>
+				
+				<p:commandButton value="Entrar" action="#{paginaInicialBean.entrar()}" update="@form" style="width:210px; margin: auto;" />
 				<p:commandLink value="Esqueceu a Senha?" action="recuperaSenha?faces-redirect=true" style="margin: auto; text-align: center;" />
 			</h:panelGrid>
 			

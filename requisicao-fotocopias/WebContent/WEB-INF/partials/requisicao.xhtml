@@ -9,34 +9,36 @@
 
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Número: " />
-			<p:outputLabel value="2015/000013" />
+			<p:outputLabel value="#{autorizadorBean.requisicao.numero}" />
 		</h:panelGrid>
 		
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Solicitante: " />
-			<p:outputLabel value="João" />
+			<p:outputLabel value="#{autorizadorBean.requisicao.usuario.nome}" />
 		</h:panelGrid>
 		
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Data: " />
-			<p:outputLabel value="09/11/2015" />
+			<p:outputLabel value="#{autorizadorBean.requisicao.data}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
 		</h:panelGrid>
 		
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Status: " />
-			<p:outputLabel value="Aguardando Autorização" />
+			<p:outputLabel value="#{autorizadorBean.requisicao.status}" />
 		</h:panelGrid>
 		
-		<p:dataTable value="#{testeBean.alunos}" var="a"
+		<p:dataTable value="#{autorizadorBean.requisicao.itens}" var="i"
 			emptyMessage="Não há requisições pendentes!">
 			<p:column headerText="Item">
-				<h:outputText value="#{a.id}" />
+				<h:outputText value="#{i.numero}" />
 			</p:column>
 			<p:column headerText="Discriminação">
-				<h:outputText value="#{a.idade}" />
+				<h:outputText value="#{i.discriminacao}" />
 			</p:column>
 			<p:column headerText="Quantidade">
-				<h:outputText value="#{a.nome}" />
+				<h:outputText value="#{i.quantidade}" />
 			</p:column>
 		</p:dataTable>
 		
