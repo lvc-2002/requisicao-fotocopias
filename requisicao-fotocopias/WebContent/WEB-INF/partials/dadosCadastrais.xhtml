@@ -10,10 +10,10 @@
 		<p:messages id="msg" closable="true" />
 		<p:outputLabel value="Siape: " for="siape" />
 		<p:inputMask id="siape" mask="999999"
-			value="#{autorizadorBean.usuarioLogado.siape}" style="width: 200px;" />
+			value="#{bean.usuarioLogado.siape}" style="width: 200px;" />
 
 		<p:outputLabel value="Nome: " for="nome" />
-		<p:inputText id="nome" value="#{autorizadorBean.usuarioLogado.nome}"
+		<p:inputText id="nome" value="#{bean.usuarioLogado.nome}"
 			style="width:420px;" />
 
 		<h:panelGrid columns="2">
@@ -21,9 +21,9 @@
 			<p:outputLabel value="Sexo: " for="sexo" />
 
 			<p:calendar id="nascimento"
-				value="#{autorizadorBean.usuarioLogado.dataNascimento}" size="18" />
+				value="#{bean.usuarioLogado.dataNascimento}" size="18" />
 			<p:selectOneMenu id="sexo"
-				value="#{autorizadorBean.usuarioLogado.sexo}" var="s"
+				value="#{bean.usuarioLogado.sexo}" var="s"
 				style="width:210px;">
 				<f:selectItem itemValue="M" itemLabel="Masculino" />
 				<f:selectItem itemValue="F" itemLabel="Feminino" />
@@ -33,24 +33,24 @@
 			<p:outputLabel value="Celular: " for="celular" />
 
 			<p:inputMask id="telefone" mask="(99) 9999-9999"
-				value="#{autorizadorBean.usuarioLogado.contato.telefone}"
+				value="#{bean.usuarioLogado.contato.telefone}"
 				style="width:200px;" />
 			<p:inputMask id="celular" mask="(99) 99999-9999"
-				value="#{autorizadorBean.usuarioLogado.contato.celular}"
+				value="#{bean.usuarioLogado.contato.celular}"
 				style="width:200px;" />
 		</h:panelGrid>
 
 		<h:panelGrid columns="1">
 			<p:outputLabel value="E-mail: " for="email" />
 			<p:inputText id="email"
-				value="#{autorizadorBean.usuarioLogado.contato.email}"
+				value="#{bean.usuarioLogado.contato.email}"
 				style="width:414px;" />
 
 		</h:panelGrid>
 
 		<h:panelGrid columns="2" style="float:right;">
 			<p:commandButton value="Salvar"
-				action="#{autorizadorBean.alteraDadosCadastrais()}" update="msg" />
+				action="#{bean.alteraDadosCadastrais()}" update="msg" />
 		</h:panelGrid>
 
 	</h:panelGrid>

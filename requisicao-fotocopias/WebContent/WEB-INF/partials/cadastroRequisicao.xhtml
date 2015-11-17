@@ -13,9 +13,9 @@
 				<p:outputLabel value="Solicitante: " />
 				<p:outputLabel value="Data: " />
 
-				<p:inputText value="#{autorizadorBean.usuarioLogado.nome}"
+				<p:inputText value="#{bean.usuarioLogado.nome}"
 					readonly="true" style="width: 400px;" />
-				<p:inputText value="#{autorizadorBean.createDataAtual()}"
+				<p:inputText value="#{bean.createDataAtual()}"
 					readonly="true" style="width: 100px;">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</p:inputText>
@@ -23,7 +23,7 @@
 
 			<h:panelGrid columns="1">
 				<p:outputLabel value="Discriminação: " />
-				<p:inputTextarea value="#{autorizadorBean.item.discriminacao}" style="width: 515px;" />
+				<p:inputTextarea value="#{bean.item.discriminacao}" style="width: 515px;" />
 			</h:panelGrid>
 
 		</h:panelGrid>
@@ -32,11 +32,11 @@
 			<p:outputLabel value="Status: " />
 			<p:inputText value="Em Processo" readonly="true" />
 			<p:outputLabel value="Quantidade: " />
-			<p:inputText type="number" value="#{autorizadorBean.item.quantidade}" />
-			<p:commandButton value="Adicionar" action="#{autorizadorBean.adicionaItemRequisicao()}" update=":conteudo" />
+			<p:inputText type="number" value="#{bean.item.quantidade}" />
+			<p:commandButton value="Adicionar" action="#{bean.adicionaItemRequisicao()}" update=":conteudo" />
 		</h:panelGrid>
 
-		<p:dataTable value="#{autorizadorBean.requisicao.itens}" var="i" paginator="true" rows="5" paginatorPosition="bottom">
+		<p:dataTable value="#{bean.requisicao.itens}" var="i" paginator="true" rows="5" paginatorPosition="bottom">
 			<p:column headerText="Item">
 				<h:outputLabel value="#{i.numero}" />
 			</p:column>
@@ -52,9 +52,9 @@
 			
 		</p:dataTable>
 		
-		<p:inputText value="#{autorizadorBean.requisicao.total}" />
+		<p:inputText value="#{bean.requisicao.total}" />
 		
-		<p:commandButton value="Salvar" action="#{autorizadorBean.salvaRequisicao()}" update=":conteudo" />
+		<p:commandButton value="Salvar" action="#{bean.salvaRequisicao()}" update=":conteudo" />
 
 	</h:panelGrid>
 

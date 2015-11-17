@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/templates/main.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<ui:define name="barra-de-menus">
+		<h:form>
+			<p:toolbar style="width: 990px; margin: 10px auto;">
+				<p:toolbarGroup>
+					<p:commandButton value="Início"
+						action="#{solicitanteBean.mostraMinhasRequisicoes()}"
+						update=":conteudo" />
+
+					<p:commandButton value="Fazer Requisição"
+						action="#{solicitanteBean.mostraFazerRequisicao()}"
+						update=":conteudo" />
+
+					<p:commandButton value="Meus Dados"
+						action="#{solicitanteBean.mostraMeusDados()}" update=":conteudo" />
+
+				</p:toolbarGroup>
+				<p:toolbarGroup style="float: right;">
+					<p:commandButton value="Sair" action="#{solicitanteBean.sair()}" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="conteudo">
+			<ui:include src="#{solicitanteBean.conteudo}">
+				<ui:param name="bean" value="#{solicitanteBean}" />
+			</ui:include>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
