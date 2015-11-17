@@ -5,6 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
+import br.com.lam.model.Autorizador;
+import br.com.lam.model.Executante;
+import br.com.lam.model.Solicitante;
 import br.com.lam.model.Usuario;
 import br.com.lam.regranegocio.UsuarioRN;
 import br.com.lam.util.MessagesUtil;
@@ -43,7 +46,16 @@ public class PaginaInicialBean {
 			if(u.getSenha().equals(senha)) {
 				HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 				sessao.setAttribute("usuario", u);
-				return "autorizador?faces-redirect=true";
+				if(u instanceof Autorizador){
+					return "autorizador?faces-redirect=true";
+				}else if(u instanceof Solicitante){
+					return "solicitante?faces-redirect=true";
+				}else if(u instanceof Executante){
+					return "atendente?faces-redirect=true";
+				}else{
+					return null;
+				}
+				
 			} else {
 				MessagesUtil.createMessageError(null, "Acesso negado!", "Usuário e/ou Senha Inválido(s).");
 				return null;
