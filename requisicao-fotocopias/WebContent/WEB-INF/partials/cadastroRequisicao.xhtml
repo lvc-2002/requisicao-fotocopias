@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:panelGrid columns="1" style="margin: 0 auto; padding: 20px;">
-	
+
 		<p:messages autoUpdate="true" closable="true" />
 
 		<h:panelGrid columns="1">
@@ -14,8 +14,10 @@
 				<p:outputLabel value="Data: " />
 				<p:outputLabel value="Status: " />
 
-				<p:outputLabel value="#{bean.usuarioLogado.nome}" style="width: 515px;" />
-				<h:outputLabel value="#{bean.createDataAtual()}" style="width: 100px;">
+				<p:outputLabel value="#{bean.usuarioLogado.nome}"
+					style="width: 515px;" />
+				<h:outputLabel value="#{bean.createDataAtual()}"
+					style="width: 100px;">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:outputLabel>
 				<p:outputLabel value="Em Processo" />
@@ -23,20 +25,29 @@
 
 			<h:panelGrid columns="1">
 				<p:outputLabel value="Discriminação: " />
-				<p:inputTextarea value="#{bean.item.discriminacao}" style="width: 515px;" />
-				
+				<p:inputTextarea id="discriminacao" value="#{bean.item.discriminacao}" required="true" requiredMessage="Informe a discriminação."
+					style="width: 515px;" />
+				<p:message for="discriminacao" />
+
 				<h:panelGrid columns="2">
 					<p:outputLabel value="Quantidade: " />
 					<p:spacer />
+
+					<p:inputText id="quantidade" label="Quantidade" type="number" value="#{bean.item.quantidade}" required="true" requiredMessage="informe a quantidade.">
+						<f:validateLongRange minimum="1" />
+					</p:inputText>
 					
-					<p:inputText type="number" value="#{bean.item.quantidade}" />
-					<p:commandButton value="Adicionar" action="#{bean.adicionaItemRequisicao()}" update=":conteudo" />
+					<p:commandButton value="Adicionar" process="@form"
+						action="#{bean.adicionaItemRequisicao()}" update=":conteudo" />
+					
 				</h:panelGrid>
 			</h:panelGrid>
 
 		</h:panelGrid>
 
-		<p:dataTable value="#{bean.requisicao.itens}" var="i" paginator="true" rows="5" paginatorPosition="top">
+		<p:dataTable id="requisicoes" value="#{bean.requisicao.itens}" var="i"
+			paginator="true" rows="5" paginatorPosition="top"
+			emptyMessage="Não há itens">
 			<p:column headerText="Item">
 				<h:outputLabel value="#{i.numero}" />
 			</p:column>
@@ -46,19 +57,43 @@
 			<p:column headerText="Quantidade">
 				<h:outputLabel value="#{i.quantidade}" />
 			</p:column>
-			<p:column headerText="Opções">
-				<p:commandButton icon="ui-icon-close" />
+			<p:column headerText="Opções" style="width: 40px;">
+				<h:form>
+					<p:commandButton id="btn-editar" icon="ui-icon-pencil"
+						onclick="dlg2.show();"
+						style="width: 30px; height: 30px; float: left;" />
+					<p:tooltip for="btn-editar" value="Editar" />
+					<p:commandButton id="btn-excluir" icon="ui-icon-close"
+						action="#{bean.retirarItemRequisicao(r.numero)}"
+						update=":conteudo"
+						style="width: 30px; height: 30px; float: right;" />
+					<p:tooltip for="btn-excluir" value="Excluir" />
+					<p:dialog id="dlg2" widgetVar="dlg2" modal="true"
+						appendToBody="true" header="Item #{i.numero}" width="300px"
+						height="200px">
+						<p:outputLabel for="discriminacao" value="Discriminação: " />
+						<p:inputText id="discriminacao" value="#{i.discriminacao}" />
+						<p:outputLabel for="quantidade" value="Quantidade: " />
+						<p:inputText id="quantidade" value="#{i.quantidade}" />
+						<p:commandButton value="Salvar" update=":conteudo"
+							action="bean.editarItemRequisicao(i.numero)"
+							onclick="dlg2.hide();" style="float: right;" />
+					</p:dialog>
+				</h:form>
 			</p:column>
-			
+
 			<p:columnGroup type="footer">
 				<p:row>
-					<p:column colspan="3" footerText="Total: " style="text-align: right;" />
-					<p:column footerText="#{bean.requisicao.total}" style="text-align: right;" />
+					<p:column colspan="3" footerText="Total: "
+						style="text-align: right;" />
+					<p:column footerText="#{bean.requisicao.total}"
+						style="text-align: right;" />
 				</p:row>
 			</p:columnGroup>
 		</p:dataTable>
-		
-		<p:commandButton value="Salvar" action="#{bean.salvaRequisicao()}" update=":conteudo" style="float: right;" />
+
+		<p:commandButton value="Salvar" immediate="true" action="#{bean.salvaRequisicao()}"
+			update=":conteudo" style="float: right;" />
 
 	</h:panelGrid>
 
