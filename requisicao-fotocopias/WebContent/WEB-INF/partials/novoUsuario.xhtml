@@ -7,44 +7,54 @@
 	<h:panelGrid columns="1"
 		style="width: 400px; margin: 0 auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
 
-		<p:messages autoUpdate="true" closable="true" showDetail="true" />
+		<p:messages autoUpdate="true" globalOnly="true" closable="true" showDetail="true" />
 
 		<p:outputLabel value="Siape: " for="siape" />
 		<p:inputMask id="siape" mask="999999"
-			value="#{bean.usuario.siape}" style="width: 200px;" />
-
+			value="#{bean.usuario.siape}" required="true" requiredMessage="Informe o siape." style="width: 200px;" />
+		<p:message for="siape" />
+		
 		<p:outputLabel value="Nome: " for="nome" />
-		<p:inputText id="nome" value="#{bean.usuario.nome}"
+		<p:inputText id="nome" value="#{bean.usuario.nome}" required="true" requiredMessage="Informe o nome."
 			style="width:420px;" />
-
+		<p:message for="nome" />
+		
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Nascimento: " for="nascimento" />
 			<p:outputLabel value="Sexo: " for="sexo" />
 
-			<p:calendar id="nascimento"
-				value="#{bean.usuario.dataNascimento}" size="18" />
-			<p:selectOneMenu id="sexo" value="#{bean.usuario.sexo}"
+			<p:inputMask id="nascimento" mask="99/99/9999" value="#{bean.usuario.dataNascimento}" required="true" requiredMessage="Informe a data de nascimento." style="width: 200px;">
+				<f:convertDateTime for="nascimento" pattern="dd/MM/yyyy" />
+			</p:inputMask>
+			
+			<p:selectOneMenu id="sexo" value="#{bean.usuario.sexo}" required="true" requiredMessage="Informe o sexo."
 				var="s" style="width:210px;">
 				<f:selectItem itemValue="M" itemLabel="Masculino" />
 				<f:selectItem itemValue="F" itemLabel="Feminino" />
 			</p:selectOneMenu>
-
+			
 			<p:outputLabel value="Telefone: " for="telefone" />
 			<p:outputLabel value="Celular: " for="celular" />
-
+			
 			<p:inputMask id="telefone" mask="(99) 9999-9999"
 				value="#{bean.usuario.contato.telefone}"
 				style="width:200px;" />
-			<p:inputMask id="celular" mask="(99) 99999-9999"
+			
+			<p:inputMask id="celular" mask="(99) 99999-9999" required="true" requiredMessage="Informe o celular."
 				value="#{bean.usuario.contato.celular}"
 				style="width:200px;" />
+			
+			<p:message for="telefone" />
+			<p:message for="celular" />
+			
 		</h:panelGrid>
 
 		<h:panelGrid columns="1">
 			<p:outputLabel value="E-mail: " for="email" />
 			<p:inputText id="email"
-				value="#{bean.usuario.contato.email}"
+				value="#{bean.usuario.contato.email}" required="true" requiredMessage="Informe o E-mail."
 				style="width:414px;" />
+			<p:message for="email" />
 
 		</h:panelGrid>
 
@@ -52,16 +62,19 @@
 			<p:outputLabel value="Senha: " for="senha" />
 			<p:outputLabel value="Confirmação: " for="confirma-senha" />
 
-			<p:password id="senha" value="#{bean.usuario.senha}"
+			<p:password id="senha" value="#{bean.usuario.senha}" required="true" requiredMessage="Informe a senha."
 				style="width:200px;" />
-			<p:password id="confirma-senha"
+			<p:password id="confirma-senha" required="true" requiredMessage="Confirme a senha."
 				value="#{bean.confirmaSenha}" style="width:200px;" />
+			
+			<p:message for="senha" />
+			<p:message for="confirma-senha" />
 		</h:panelGrid>
 
 		<h:panelGrid columns="2" style="float: right;">
 			<p:button value="Voltar" outcome="index?faces-redirect=true" rendered="" />
 			<p:commandButton value="Salvar"
-				action="#{bean.salvaUsuario()}" />
+				action="#{bean.salvaUsuario()}" update="@form" />
 		</h:panelGrid>
 
 	</h:panelGrid>
