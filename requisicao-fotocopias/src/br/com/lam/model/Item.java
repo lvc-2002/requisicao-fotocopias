@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Item {
@@ -12,6 +13,7 @@ public class Item {
 	@GeneratedValue
 	private long id;
 	
+	@Transient
 	private int numero;
 	
 	private String discriminacao;
@@ -106,8 +108,7 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", numero=" + numero + ", discriminacao="
-				+ discriminacao + ", quantidade=" + quantidade
-				+ ", requisicao=" + requisicao + "]";
+				+ discriminacao + ", quantidade=" + quantidade + "]";
 	}
-	
+
 }

@@ -40,6 +40,9 @@ public class Requisicao {
 	@ManyToOne
 	private Usuario usuario;
 	
+	@ManyToOne
+	private Autorizador autorizador;
+	
 	public Requisicao() {
 		super();
 		itens = new ArrayList<Item>();
@@ -117,6 +120,22 @@ public class Requisicao {
 	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public Autorizador getAutorizador() {
+		return autorizador;
+	}
+	
+	public void setAutorizador(Autorizador autorizador) {
+		this.autorizador = autorizador;
+	}
+	
+	public int totalQuantidadeItens() {
+		int j = 0;
+		for(Item i : itens){
+			j = j + i.getQuantidade();
+		}
+		return j;
 	}
 	
 	@Override

@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.NaturalId;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tipo", discriminatorType=DiscriminatorType.STRING)
@@ -23,6 +25,7 @@ public class Usuario {
 	@GeneratedValue
 	private long id;
 	
+	@NaturalId
 	private String siape;
 	
 	private String nome;
@@ -33,6 +36,8 @@ public class Usuario {
 	private char sexo;
 	
 	private boolean ativo;
+	
+	private boolean rejeitado;
 	
 	@OneToOne(cascade={CascadeType.ALL})
 	private Contato contato;
@@ -115,6 +120,14 @@ public class Usuario {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public boolean isRejeitado() {
+		return rejeitado;
+	}
+	
+	public void setRejeitado(boolean rejeitado) {
+		this.rejeitado = rejeitado;
 	}
 
 	public Contato getContato() {

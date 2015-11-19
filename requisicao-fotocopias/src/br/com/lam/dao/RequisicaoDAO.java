@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.lam.model.Requisicao;
+import br.com.lam.model.Status;
 import br.com.lam.model.Usuario;
 
 public class RequisicaoDAO extends DAO implements GenericDAO<Requisicao> {
@@ -47,15 +48,15 @@ public class RequisicaoDAO extends DAO implements GenericDAO<Requisicao> {
 	
 	@SuppressWarnings("unchecked")
 	public List<Requisicao> lista (Usuario u) {
-		Query q = em.createQuery("select u from Requisicao u where u.id == :id");
-		q.setParameter("id", u.getId());
+		Query q = em.createQuery("select r from Requisicao r where usuario = :u", Requisicao.class);
+		q.setParameter("u", u);
 		return q.getResultList();
 		
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Requisicao> listaRequiscoes(String status) {
-		Query q = em.createQuery("select r from Requisicao r wehre r.status == :status");
+	public List<Requisicao> listaRequiscoes(Status status) {
+		Query q = em.createQuery("select r from Requisicao r where status = :status", Requisicao.class);
 		q.setParameter("status", status);
 		return q.getResultList();
 		

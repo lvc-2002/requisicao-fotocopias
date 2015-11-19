@@ -7,14 +7,14 @@ import br.com.lam.model.Usuario;
 
 public class UsuarioRN {
 	
-	private UsuarioDAO dao;
+	private UsuarioDAO usuarioDao;
 	
 	public UsuarioRN(EntityManager em) {
-		dao = new UsuarioDAO(em);
+		usuarioDao = new UsuarioDAO(em);
 	}
 	
 	public Usuario pesquisa(String siape) {
-		Usuario u = dao.pesquisa(siape);
+		Usuario u = usuarioDao.pesquisa(siape);
 		return u.isAtivo() ? u : null;
 	}
 	
