@@ -4,53 +4,33 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<!--
-	<h:panelGrid columns="1"
-		style="width: 910px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
+	<p:messages closable="true" autoUpdate="true" />
 
-	</h:panelGrid>
-	-->
+	<p:dataTable id="usuarios" value="#{autorizadorBean.usuarios}" var="u"
+		emptyMessage="Não há usuários cadastrados!" paginator="true" rows="10"
+		paginatorPosition="bottom" style="width: 900px; margin: 10px auto;">
+		<p:column headerText="Siape" style="width: 80px; text-align: center;">
+			<p:commandLink value="#{u.siape}"
+				action="#{autorizadorBean.preparaEdicaoUsuario(u.id)}"
+				update=":conteudo" />
+		</p:column>
+		<p:column headerText="Nome" style="width: 420px;">
+			<h:outputText value="#{u.nome}" />
+		</p:column>
+		<p:column headerText="Opções" style="width: 120px;">
+			<p:commandLink value="Autorizar" rendered="#{not u.ativo}"
+				action="#{autorizadorBean.autorizarUsuario(u.id)}"
+				update=":conteudo" style="padding: 10px;" />
 
-	<h:form>
-		<p:messages closable="true" autoUpdate="true" />
-		<p:outputLabel value="Usuários" style="font-size: 20pt; float: left;" />
+			<p:commandLink value="Rejeitar" rendered="#{u.rejeitado}"
+				action="#{autorizadorBean.rejeitarUsuario(u.id)}" update=":conteudo"
+				style="padding: 10px;" />
 
-		<p:dataTable id="usuarios" value="#{autorizadorBean.usuarios}" var="u"
-			emptyMessage="Não há usuários cadastrados!"
-			paginator="true"
-			rows="10"
-			paginatorPosition="bottom"
-			style="margin: 10px auto;">
-			<p:column headerText="Siape">
-				<h:outputText value="#{u.siape}" />
-			</p:column>
-			<p:column headerText="Nome">
-				<h:outputText value="#{u.nome}" />
-			</p:column>
-			<p:column headerText="Opções" style="width: 100px;">
-				<p:commandLink value="Autorizar" rendered="#{not u.ativo}"
-					action="#{autorizadorBean.autorizarUsuario(u.id)}"
-					update=":conteudo" style="padding: 10px;" />
+			<p:commandLink value="Desativar" rendered="#{u.ativo}"
+				action="#{autorizadorBean.desativarUsuario(u.id)}"
+				update=":conteudo" style="padding: 10px;" />
+		</p:column>
 
-				<p:commandLink value="Rejeitar" rendered="#{not u.ativo}"
-					action="#{autorizadorBean.rejeitarUsuario(u.id)}"
-					update=":conteudo" style="padding: 10px;" />
-
-				<p:commandLink value="Desativar" rendered="#{u.ativo}"
-					action="#{autorizadorBean.desativarUsuario(u.id)}"
-					update=":conteudo" style="padding: 10px;" />
-			</p:column>
-
-		</p:dataTable>
-	</h:form>
-
-	<p:dialog widgetVar="dialogAtendente" header="Novo Antendente"
-		closable="true" appendToBody="true">
-		<h:form>
-			<ui:include src="/WEB-INF/partials/novoUsuario.xhtml">
-				<ui:param name="bean" value="#{autorizadorBean}"></ui:param>
-			</ui:include>
-		</h:form>
-	</p:dialog>
+	</p:dataTable>
 
 </ui:composition>

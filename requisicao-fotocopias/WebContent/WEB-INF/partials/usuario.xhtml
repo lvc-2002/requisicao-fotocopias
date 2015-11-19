@@ -10,20 +10,21 @@
 		<p:messages id="msg" closable="true" />
 		
 		<p:outputLabel value="Siape: " for="siape" />
-		<p:inputMask id="siape" mask="999999" readonly="true"
-			value="#{bean.usuarioLogado.siape}" style="width: 200px;" />
+		<p:inputMask id="siape" mask="999999"
+			value="#{bean.usuario.siape}" style="width: 200px;" />
 
 		<p:outputLabel value="Nome: " for="nome" />
-		<p:inputText id="nome" value="#{bean.usuarioLogado.nome}"
+		<p:inputText id="nome" value="#{bean.usuario.nome}"
 			style="width:420px;" />
 
 		<h:panelGrid columns="2">
 			<p:outputLabel value="Nascimento: " for="nascimento" />
 			<p:outputLabel value="Sexo: " for="sexo" />
 
-			<p:calendar id="nascimento" value="#{bean.usuarioLogado.dataNascimento}" pattern="dd/MM/yyyy" mask="99/99/9999"/>
+			<p:calendar id="nascimento" pattern="dd/MM/yyyy" mask="99/99/9999"
+				value="#{bean.usuario.dataNascimento}" size="18" />
 			<p:selectOneMenu id="sexo"
-				value="#{bean.usuarioLogado.sexo}" var="s"
+				value="#{bean.usuario.sexo}" var="s"
 				style="width:210px;">
 				<f:selectItem itemValue="M" itemLabel="Masculino" />
 				<f:selectItem itemValue="F" itemLabel="Feminino" />
@@ -33,26 +34,26 @@
 			<p:outputLabel value="Celular: " for="celular" />
 
 			<p:inputMask id="telefone" mask="(99) 9999-9999"
-				value="#{bean.usuarioLogado.contato.telefone}"
+				value="#{bean.usuario.contato.telefone}"
 				style="width:200px;" />
 			<p:inputMask id="celular" mask="(99) 99999-9999"
-				value="#{bean.usuarioLogado.contato.celular}"
+				value="#{bean.usuario.contato.celular}"
 				style="width:200px;" />
 		</h:panelGrid>
 
 		<h:panelGrid columns="1">
 			<p:outputLabel value="E-mail: " for="email" />
 			<p:inputText id="email"
-				value="#{bean.usuarioLogado.contato.email}"
+				value="#{bean.usuario.contato.email}"
 				style="width:414px;" />
 
 		</h:panelGrid>
 
 		<h:panelGrid columns="2" style="float:right;">
 			<p:commandButton value="Alterar Senha"
-				action="#{bean.mostraAlterarSenha()}" update=":conteudo" />
+				action="#{bean.mostraAlterarSenhaSolicitante()}" update=":conteudo" />
 				<p:commandButton value="Salvar"
-				action="#{bean.alteraDadosCadastrais()}" update="msg" />
+				action="#{bean.alteraDadosDoUsuario()}" update="msg" />
 		</h:panelGrid>
 
 	</h:panelGrid>

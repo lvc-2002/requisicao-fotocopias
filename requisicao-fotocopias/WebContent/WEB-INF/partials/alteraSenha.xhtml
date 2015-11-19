@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:panelGrid columns="1"
+		style="width: 400px; margin: 0 auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+		
+		<p:messages id="msg" closable="true" globalOnly="true" />
+		
+		<p:outputLabel value="Senha Atual: " for="senha-atual" />
+		<p:password id="senha-atual" value="#{bean.senhaAtual}" required="true" requiredMessage="Informe a senha atual."
+			style="width:420px;" />
+		<p:message for="senha-atual" />
+		
+		<p:outputLabel value="Nova Senha: " for="nova-senha" />
+		<p:password id="nova-senha" value="#{bean.novaSenha}" required="true" requiredMessage="Informe a nova senha."
+			style="width:420px;" />
+		<p:message for="nova-senha" />
+			
+		<p:outputLabel value="Confirmar Senha: " for="confirmar-senha" />
+		<p:password id="confirmar-senha" value="#{bean.confirmaSenha}" required="true" requiredMessage="Confirme a nova senha."
+			style="width:420px;" />
+		<p:message for="confirmar-senha" />
+		
+		<p:commandButton value="Salvar" action="#{bean.alteraSenha()}" update=":conteudo" style="float: right;" />
+
+	</h:panelGrid>
+
+</ui:composition>

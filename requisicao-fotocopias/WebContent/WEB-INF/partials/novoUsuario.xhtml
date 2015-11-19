@@ -7,7 +7,7 @@
 	<h:panelGrid columns="1"
 		style="width: 400px; margin: 0 auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
 
-		<p:messages autoUpdate="true" globalOnly="true" closable="true" showDetail="true" />
+		<p:messages autoUpdate="true" globalOnly="true" closable="true" />
 
 		<p:outputLabel value="Siape: " for="siape" />
 		<p:inputMask id="siape" mask="999999"
@@ -23,9 +23,7 @@
 			<p:outputLabel value="Nascimento: " for="nascimento" />
 			<p:outputLabel value="Sexo: " for="sexo" />
 
-			<p:inputMask id="nascimento" mask="99/99/9999" value="#{bean.usuario.dataNascimento}" required="true" requiredMessage="Informe a data de nascimento." style="width: 200px;">
-				<f:convertDateTime for="nascimento" pattern="dd/MM/yyyy" />
-			</p:inputMask>
+			<p:calendar id="nascimento" value="#{bean.usuario.dataNascimento}" pattern="dd/MM/yyyy" mask="99/99/9999" />
 			
 			<p:selectOneMenu id="sexo" value="#{bean.usuario.sexo}" required="true" requiredMessage="Informe o sexo."
 				var="s" style="width:210px;">

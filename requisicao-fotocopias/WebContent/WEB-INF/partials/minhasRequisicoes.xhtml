@@ -9,26 +9,28 @@
 		
 		<h:form>
 			<p:outputLabel value="Minhas Requisições" style="font-size: 20pt;" />
+			<p:messages autoUpdate="true" closable="true" />
 		</h:form>
 		<p:dataTable
-			value="#{bean.requisicao}"
+			value="#{bean.requisicoes}"
 			var="r"
-			emptyMessage="Não há requisições!">
-			<p:column headerText="Data">
+			emptyMessage="Não há requisições!" paginator="true" rows="10" paginatorPosition="bottom">
+			<p:column headerText="Data" style="width: 100px; text-align: center;">
 				<h:outputText value="#{r.data}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Número">
-				<h:outputText value="#{r.numero}" />
+			<p:column headerText="Requisição" style="width: 100px; text-align: right;">
+				<h:outputText value="#{r.id}" />
 			</p:column>
 			<p:column headerText="Status">
 				<h:outputText value="#{r.status.valor}" />
 			</p:column>
-			<p:column headerText="Opções" style="width: 100px;">
-				<h:form style="margin: auto;">
-					<p:commandButton value="Visualizar" />
-				</h:form>
+			<p:column headerText="Opções" style="width: 70px;">
+				<p:commandButton id="btn-excluir" icon="ui-icon-close" action="#{bean.excluiRequisicao(r.id)}" rendered="#{r.status.valor eq 'Aguardando Autorização'}" update=":conteudo" style="width: 30px; height: 30px;" />
+				<p:tooltip for="btn-excluir" value="Excluir" />
+				<p:commandButton id="btn-visualizar" icon="ui-icon-search" action="#{bean.mostraRequisicao(r.id)}" update=":conteudo" style="width: 30px; height: 30px;" />
+				<p:tooltip for="btn-visualizar" value="Visualizar" />
 			</p:column>
 		</p:dataTable>
 
