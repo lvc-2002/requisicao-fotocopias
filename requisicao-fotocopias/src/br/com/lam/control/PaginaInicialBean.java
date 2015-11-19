@@ -1,8 +1,10 @@
 package br.com.lam.control;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.lam.model.Autorizador;
@@ -41,28 +43,31 @@ public class PaginaInicialBean {
 	
 	public String entrar() {
 		UsuarioRN usuarioRn = new UsuarioRN(getEntityManager());
-		Usuario u = usuarioRn.pesquisa(siape);
-		if(u != null) {
-			if(u.getSenha().equals(senha)) {
-				HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-				sessao.setAttribute("usuario", u);
-				if(u instanceof Autorizador){
-					return "autorizador?faces-redirect=true";
-				}else if(u instanceof Solicitante){
-					return "solicitante?faces-redirect=true";
-				}else if(u instanceof Executante){
-					return "atendente?faces-redirect=true";
-				}else{
+		try {
+			Usuario u = usuarioRn.pesquisa(siape);
+			if(u != null) {
+				if(u.getSenha().equals(senha)) {
+					HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+					sessao.setAttribute("usuario", u);
+					if(u instanceof Autorizador){
+						return "autorizador?faces-redirect=true";
+					}else if(u instanceof Solicitante){
+						return "solicitante?faces-redirect=true";
+					}else if(u instanceof Executante){
+						return "atendente?faces-redirect=true";
+					}else{
+						return null;
+					}
+				} else {
+					MessagesUtil.createMessageError(null, "Acesso negado!", "Usuário e/ou Senha Inválido(s).");
 					return null;
 				}
-				
 			} else {
-				MessagesUtil.createMessageError(null, "Acesso negado!", "Usuário e/ou Senha Inválido(s).");
+				MessagesUtil.createMessageError(null, "Acesso negado!", "Entre em contato com algum autorizador.");
 				return null;
 			}
-			
-		} else {
-			MessagesUtil.createMessageError(null, "Acesso negado!", "Entre em contato com algum autorizador.");
+		} catch (Exception e) {
+			MessagesUtil.createMessageError(null, "Usuário não encontrado!", null);
 			return null;
 		}
 	}
@@ -72,7 +77,10 @@ public class PaginaInicialBean {
 	}
 	
 	private EntityManager getEntityManager(){
-		return (EntityManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("em");
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext ec = fc.getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+		return (EntityManager) request.getAttribute("em");
 	}
 
 }

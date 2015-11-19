@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.lam.dao.RequisicaoDAO;
@@ -24,11 +27,14 @@ public class SolicitanteBean {
 	
 	// Caminho para os conteúdos da tela do Autorizador
 	private static final String MINHAS_REQUISICOES = "/WEB-INF/partials/minhasRequisicoes.xhtml";
+	private static final String REQUISICAO = "/WEB-INF/partials/requisicao.xhtml";
 	private static final String FAZER_REQUISICAO = "/WEB-INF/partials/cadastroRequisicao.xhtml";
 	private static final String MEUS_DADOS = "/WEB-INF/partials/dadosCadastrais.xhtml";
+	private static final String ALTERA_SENHA = "/WEB-INF/partials/alteraSenha.xhtml";
 	
 	private Usuario usuarioLogado;
 	private String novaSenha;
+	private String senhaAtual;
 	
 	private String conteudo;
 	
@@ -41,6 +47,8 @@ public class SolicitanteBean {
 	public SolicitanteBean() {
 		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
 		usuarioLogado = (Usuario) sessao.getAttribute("usuario");
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		requisicoes = dao.lista(usuarioLogado);
 		setConteudo(MINHAS_REQUISICOES);
 	}
 	
@@ -58,6 +66,14 @@ public class SolicitanteBean {
 	
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
+	}
+	
+	public String getSenhaAtual() {
+		return senhaAtual;
+	}
+	
+	public void setSenhaAtual(String senhaAtual) {
+		this.senhaAtual = senhaAtual;
 	}
 	
 	public String getConteudo() {
@@ -100,12 +116,17 @@ public class SolicitanteBean {
 		this.confirmaSenha = confirmaSenha;
 	}
 	
+	
 	// Métodos que alteram o conteúdo da tela do Autorizador
 	public void mostraRequisicao(long id) {
-		requisicao = requisicoes.get((int) id);
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		requisicao = dao.pesquisa(id);
+		setConteudo(REQUISICAO);
 	}
 	
 	public void mostraMinhasRequisicoes() {
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		requisicoes = dao.lista(usuarioLogado);
 		setConteudo(MINHAS_REQUISICOES);
 	}
 	
@@ -119,8 +140,27 @@ public class SolicitanteBean {
 		setConteudo(MEUS_DADOS);
 	}
 	
+	public void mostraAlterarSenha() {
+		setConteudo(ALTERA_SENHA);
+	}
+	
 	
 	// Ações da tela
+	public void preparaEdicaoRequisicao(long id) {
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		requisicao = dao.pesquisa(id);
+		setConteudo(FAZER_REQUISICAO);
+	}
+	
+	public void excluiRequisicao(long id) {
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		//JPAUtil.getEntityManager().getTransaction().begin();
+		dao.exclui(dao.pesquisa(id));
+		//JPAUtil.getEntityManager().getTransaction().commit();
+		requisicoes = dao.lista(usuarioLogado);
+		MessagesUtil.createMessageInfo(null, "Requisição excluída com sucesso!", null);
+	}
+	
 	public void adicionaItemRequisicao() {
 		item.setRequisicao(requisicao);
 		item.setNumero(requisicao.getItens().size() + 1);
@@ -133,30 +173,51 @@ public class SolicitanteBean {
 	
 	public void salvaRequisicao() {
 		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
-		JPAUtil.getEntityManager().getTransaction().begin();
-		requisicao.setData(createDataAtual());
-		requisicao.setStatus(Status.AGUARDANDO_AUTORIZACAO);
-		requisicao.setUsuario(usuarioLogado);
-		dao.salva(requisicao);
-		JPAUtil.getEntityManager().getTransaction().commit();
-		MessagesUtil.createMessageInfo(null, "Requisição cadastrada com sucesso!", null);
+		if(requisicao.getItens().size() == 0){
+			MessagesUtil.createMessageError(null, "Adicione pelo menos um item!", null);
+		}else{
+			//JPAUtil.getEntityManager().getTransaction().begin();
+			requisicao.setData(createDataAtual());
+			requisicao.setStatus(Status.AGUARDANDO_AUTORIZACAO);
+			requisicao.setUsuario(usuarioLogado);
+			dao.salva(requisicao);
+			//JPAUtil.getEntityManager().getTransaction().commit();
+			MessagesUtil.createMessageInfo(null, "Requisição cadastrada com sucesso!", null);
+		}
 	}
 	
 	public void alteraDadosCadastrais() {
-		JPAUtil.getEntityManager().getTransaction().begin();
 		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
-		dao.atualiza(usuarioLogado);
-		JPAUtil.getEntityManager().getTransaction().commit();MessagesUtil.createMessageInfo(null, "Dados alterados com sucesso!", null);
+		//EntityTransaction et = getEntityManager().getTransaction();
+		//et.begin();
+		try {
+			dao.atualiza(usuarioLogado);
+			//et.commit();
+			MessagesUtil.createMessageInfo(null, "Dados alterados com sucesso!", null);
+		} catch (Exception e) {
+			//et.rollback();
+			MessagesUtil.createMessageError(null, "O Siape informado já existe!", null);
+		}
 	}
 	
 	public void alteraSenha() {
-		/*JPAUtil.getEntityManager().getTransaction().begin();
+		//JPAUtil.getEntityManager().getTransaction().begin();
 		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
-		usuarioLogado.setSenha(novaSenha);
-		dao.atualiza(usuarioLogado);
-		JPAUtil.getEntityManager().getTransaction().commit();
-		MessagesUtil.createMessageInfo(null, "Senha alterada com sucesso!", null);*/
-		System.out.println("oi");
+		if(usuarioLogado.getSenha().equals(senhaAtual)){
+			if(novaSenha.equals(confirmaSenha)){
+				usuarioLogado.setSenha(novaSenha);
+				dao.atualiza(usuarioLogado);
+				//JPAUtil.getEntityManager().getTransaction().commit();
+				MessagesUtil.createMessageInfo(null, "Senha alterada com sucesso!", null);
+			}else{
+				//JPAUtil.getEntityManager().getTransaction().rollback();
+				MessagesUtil.createMessageError(null, "A confirmação da senha está incorreta!", null);
+			}
+		}else{
+			//JPAUtil.getEntityManager().getTransaction().rollback();
+			MessagesUtil.createMessageError(null, "A senha atual está incorreta!", null);
+		}
+		
 	}
 	
 	public String sair() {
@@ -173,7 +234,10 @@ public class SolicitanteBean {
 	
 	// Método gerador de EntityManager
 	private EntityManager getEntityManager(){
-		return (EntityManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("em");
+		FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext ec = fc.getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+		return (EntityManager) request.getAttribute("em");
 	}
 
 }

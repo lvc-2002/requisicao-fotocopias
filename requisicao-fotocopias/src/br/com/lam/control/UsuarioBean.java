@@ -1,13 +1,13 @@
 package br.com.lam.control;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import br.com.lam.dao.UsuarioDAO;
 import br.com.lam.model.Solicitante;
 import br.com.lam.model.Usuario;
+import br.com.lam.util.JPAUtil;
+import br.com.lam.util.MessagesUtil;
 
 @ManagedBean
 public class UsuarioBean {
@@ -46,17 +46,32 @@ public class UsuarioBean {
 	
 	public String salvaUsuario() {
 		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
-		EntityTransaction et = getEntityManager().getTransaction();
-		et.begin();
-		dao.salva(usuario);
-		et.commit();
-		return "sucesso?faces-redirect=true";
+		getEntityManager().getTransaction().begin();
+		try {
+			usuario.setRejeitado(true);
+			if(usuario.getSenha().equals(confirmaSenha)){
+				dao.salva(usuario);
+				getEntityManager().getTransaction().commit();
+				return "sucesso?faces-redirect=true";
+			}else {
+				MessagesUtil.createMessageError(null, "A confirmação da senha está incorreta!", null);
+				getEntityManager().getTransaction().rollback();
+				return null;
+			}
+		} catch (Exception e) {
+			getEntityManager().getTransaction().rollback();
+			MessagesUtil.createMessageError(null, "O Siape informado já existe!", null);
+		}
+		return null;
 	}
 	
 	// Método gerador de EntityManager
 	private EntityManager getEntityManager(){
-		return (EntityManager) FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("em");
-		//return JPAUtil.getEntityManager();
+		/*FacesContext fc = FacesContext.getCurrentInstance();
+		ExternalContext ec = fc.getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+		return (EntityManager) request.getAttribute("em");*/
+		return JPAUtil.getEntityManager();
 	}
 
 }
