@@ -1,6 +1,7 @@
 package br.com.lam.control;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -10,6 +11,10 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.model.StreamedContent;
+
+import com.sun.xml.internal.ws.util.UtilException;
 
 import br.com.lam.dao.RequisicaoDAO;
 import br.com.lam.dao.UsuarioDAO;
@@ -21,6 +26,7 @@ import br.com.lam.model.Status;
 import br.com.lam.model.Usuario;
 import br.com.lam.util.JPAUtil;
 import br.com.lam.util.MessagesUtil;
+import br.com.lam.util.RelatorioUtil;
 
 @ManagedBean
 @SessionScoped
@@ -55,6 +61,8 @@ public class AutorizadorBean {
 	
 	private boolean requisicaoAutorizada;
 	private boolean requisicaoRejeitada;
+	
+	private StreamedContent arquivoRetorno;
 	
 	public AutorizadorBean() {
 		HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -402,6 +410,32 @@ public class AutorizadorBean {
 			MessagesUtil.createMessageError(null, "A senha atual está incorreta!", null);
 		}
 		
+	}
+	
+	
+	// Impressão
+	public void preparaImpressao(long id) {
+		RequisicaoDAO dao = new RequisicaoDAO(getEntityManager());
+		requisicao = dao.pesquisa(id);
+	}
+	
+	public StreamedContent getArquivoRetorno() {
+		String nomeRelatorioSaida = usuarioLogado.getNome() + "-Requisicao-" + requisicao.getId();
+		RelatorioUtil relatorioUtil = new RelatorioUtil();
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("solicitante", requisicao.getUsuario().getNome());
+		parametros.put("data", requisicao.getData());
+		parametros.put("autorizador", requisicao.getAutorizador().getNome());
+		try {
+			arquivoRetorno = relatorioUtil.geraRelatorio(parametros, nomeRelatorioSaida, requisicao.getItens());
+		} catch (UtilException e) {
+			MessagesUtil.createMessageError(null, e.getMessage(), null);
+		}
+		return arquivoRetorno;
+	}
+	
+	public void setArquivoRetorno(StreamedContent arquivoRetorno) {
+		this.arquivoRetorno = arquivoRetorno;
 	}
 	
 	public String sair() {
