@@ -114,6 +114,14 @@ public class Usuario {
 		this.sexo = sexo;
 	}
 	
+	public boolean isSexoMasculino() {
+		return sexo == 'M';
+	}
+	
+	public boolean isSexoFeminino() {
+		return sexo == 'F';
+	}
+	
 	public boolean isAtivo() {
 		return ativo;
 	}

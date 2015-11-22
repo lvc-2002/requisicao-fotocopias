@@ -5,24 +5,29 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+
 <h:head>
 	<title>Sistema de Requisição de Fotocópias</title>
 </h:head>
 
 <h:body>
-	
+
 	<h:outputStylesheet name="style.css" library="css" />
-	
+
 	<div id="header">
 		<h1>Sistema de Requisição de Fotocópias</h1>
-		<p:outputLabel value="Bem vindo, #{sessionScope.usuario.nome}" style="margin: 10px;" />
+		<p:outputLabel value="Bem vindo, #{sessionScope.usuario.nome}"
+			rendered="#{sessionScope.usuario.sexoMasculino}"
+			style="margin: 10px;" />
+		<p:outputLabel value="Bem vinda, #{sessionScope.usuario.nome}"
+			rendered="#{sessionScope.usuario.sexoFeminino}"
+			style="margin: 10px;" />
 	</div>
-	
+
 	<div id="menus">
 		<ui:insert name="barra-de-menus" />
 	</div>
-	
+
 	<div id="body">
 		<p:layout style="width:1000px; height:500px; margin: 10px auto;">
 			<p:layoutUnit position="center">
@@ -30,11 +35,11 @@
 			</p:layoutUnit>
 		</p:layout>
 	</div>
-	
+
 	<div id="footer">
 		<p>Sistema de Requisição de Fotocópias</p>
 	</div>
-	
+
 </h:body>
 
 </html>
