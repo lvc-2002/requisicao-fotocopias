@@ -66,12 +66,11 @@
 		</p:dataTable>
 
 		<h:panelGrid columns="2" style="margin: 10px auto;">
-			<p:commandButton value="Autorizar"
-				action="#{bean.autorizarRequisicao()}"
-				rendered="#{bean.requisicao.status.valor eq 'Aguardando Autorização'}" />
+			<p:commandButton value="Atender" action="#{bean.atenderRequisicao()}"
+				rendered="#{bean.requisicao.status.valor eq 'Autorizada'}" />
 			<p:commandButton value="Rejeitar" type="button"
 				onclick="PF('dialog-motivo-rejeicao').show();"
-				rendered="#{bean.requisicao.status.valor eq 'Aguardando Autorização'}" />
+				rendered="#{bean.requisicao.status.valor eq 'Autorizada'}" />
 		</h:panelGrid>
 
 		<p:dialog widgetVar="dialog-motivo-rejeicao" width="400px;"

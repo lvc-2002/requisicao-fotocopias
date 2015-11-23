@@ -14,9 +14,7 @@
 	
 	<ui:define name="autenticacao">
 		<h:form>
-			
-			<!--<p:commandLink value="Cadastre-se" action="#{paginaInicialBean}" style="margin: 10px 20px 25px auto; text-align: center; float: right;" />-->
-			<h:link value="Cadastre-se" outcome="cadastraUsuario?faces-refirect=true"/>
+			<h:link value="Cadastre-se" outcome="cadastraUsuario?faces-refirect=true" style="float: right; margin: 20px;" />
 			<h:panelGrid
 				columns="1" style="margin:10px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
 				
@@ -40,7 +38,6 @@
 				<p:message for="senha"/>
 				
 				<p:commandButton value="Entrar" action="#{paginaInicialBean.entrar()}" update="@form" style="width:210px; margin: auto;" />
-				<p:commandLink value="Esqueceu a Senha?" action="recuperaSenha?faces-redirect=true" style="margin: auto; text-align: center;" />
 			</h:panelGrid>
 			
 		</h:form>

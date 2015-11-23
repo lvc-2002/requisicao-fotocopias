@@ -9,11 +9,12 @@
 
 		<p:outputLabel value="Requisições Pendentes" style="font-size: 20pt;" />
 		<p:commandLink value="Todas as Requisições"
-			actionListener="#{autorizadorBean.mostraTodasRequisicoes()}"
+			actionListener="#{bean.mostraTodasRequisicoes()}"
 			update=":conteudo :conteudo" style="float: right;" />
 
-		<p:dataTable value="#{autorizadorBean.requisicoes}" var="r"
-			emptyMessage="Não há requisições pendentes!" paginator="true" rows="10" paginatorPosition="bottom">
+		<p:dataTable value="#{bean.requisicoes}" var="r"
+			emptyMessage="Não há requisições pendentes!" paginator="true"
+			rows="10" paginatorPosition="bottom">
 			<p:column headerText="Data">
 				<h:outputText value="#{r.data}">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -27,7 +28,7 @@
 			</p:column>
 			<p:column headerText="Opções" style="width: 100px;">
 				<p:commandButton id="btn-visualizar" icon="ui-icon-search"
-					action="#{autorizadorBean.mostraRequisicao(r.id)}"
+					action="#{bean.mostraRequisicao(r.id)}"
 					update=":conteudo" style="width: 30px; height: 30px; float: left;" />
 				<p:tooltip for="btn-visualizar" value="Visualizar" />
 			</p:column>

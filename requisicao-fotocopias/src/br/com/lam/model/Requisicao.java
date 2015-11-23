@@ -38,11 +38,16 @@ public class Requisicao {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
+	private String motivo;
+	
 	@ManyToOne
 	private Usuario usuario;
 	
 	@ManyToOne
 	private Autorizador autorizador;
+	
+	@ManyToOne
+	private Executante atendente;
 	
 	public Requisicao() {
 		super();
@@ -115,6 +120,14 @@ public class Requisicao {
 		this.status = status;
 	}
 	
+	public String getMotivo() {
+		return motivo;
+	}
+	
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -129,6 +142,14 @@ public class Requisicao {
 	
 	public void setAutorizador(Autorizador autorizador) {
 		this.autorizador = autorizador;
+	}
+	
+	public Executante getAtendente() {
+		return atendente;
+	}
+	
+	public void setAtendente(Executante atendente) {
+		this.atendente = atendente;
 	}
 	
 	public int totalQuantidadeItens() {

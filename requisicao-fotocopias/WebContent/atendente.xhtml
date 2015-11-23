@@ -11,23 +11,23 @@
 			<p:toolbar style="width: 990px; margin: 10px auto;">
 				<p:toolbarGroup>
 					<p:commandButton value="Início"
-						action="#{autorizadorBean.mostraRequisicoesPendentes()}"
+						action="#{atendenteBean.mostraRequisicoesPendentes()}"
 						update=":conteudo" />
 
 					<p:commandButton value="Minhas Requisições"
-						action="#{autorizadorBean.mostraMinhasRequisicoes()}"
+						action="#{atendenteBean.mostraMinhasRequisicoes()}"
 						update=":conteudo" />
 
 					<p:commandButton value="Fazer Requisição"
-						action="#{autorizadorBean.mostraFazerRequisicao()}"
+						action="#{atendenteBean.mostraFazerRequisicao()}"
 						update=":conteudo" />
 
 					<p:commandButton value="Meus Dados"
-						action="#{autorizadorBean.mostraMeusDados()}" update=":conteudo" />
+						action="#{atendenteBean.mostraMeusDados()}" update=":conteudo" />
 
 				</p:toolbarGroup>
 				<p:toolbarGroup style="float: right;">
-					<p:commandButton value="Sair" action="#{autorizadorBean.sair()}" />
+					<p:commandButton value="Sair" action="#{atendenteBean.sair()}" />
 				</p:toolbarGroup>
 			</p:toolbar>
 		</h:form>
@@ -35,8 +35,8 @@
 
 	<ui:define name="conteudo">
 		<h:form id="conteudo">
-			<ui:include src="#{autorizadorBean.conteudo}">
-				<ui:param name="bean" value="#{autorizadorBean}" />
+			<ui:include src="#{atendenteBean.conteudo}">
+				<ui:param name="bean" value="#{atendenteBean}" />
 			</ui:include>
 		</h:form>
 	</ui:define>

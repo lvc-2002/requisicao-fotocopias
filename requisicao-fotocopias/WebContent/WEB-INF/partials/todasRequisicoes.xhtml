@@ -4,20 +4,21 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:panelGrid
-		columns="1" style="width: 910px; margin: 0 auto; padding: 20px; ">
-		
+	<h:panelGrid columns="1"
+		style="width: 910px; margin: 0 auto; padding: 20px; ">
+
 		<h:form>
 			<p:outputLabel value="Todas as Requisições" style="font-size: 20pt;" />
-			<p:commandLink value="Requisições Pendentes" actionListener="#{bean.mostraRequisicoesPendentes()}" update=":conteudo :conteudo" style="float: right;" />
+			<p:commandLink value="Requisições Pendentes"
+				actionListener="#{bean.mostraRequisicoesPendentes()}"
+				update=":conteudo :conteudo" style="float: right;" />
 		</h:form>
-		<p:dataTable
-			value="#{bean.requisicoes}"
-			var="r"
-			emptyMessage="Não há requisições pendentes!" paginator="true" rows="10" paginatorPosition="bottom">
+		<p:dataTable value="#{bean.requisicoes}" var="r"
+			emptyMessage="Não há requisições pendentes!" paginator="true"
+			rows="10" paginatorPosition="bottom">
 			<p:column headerText="Data">
 				<h:outputText value="#{r.data}">
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
+					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Número">
@@ -31,12 +32,12 @@
 			</p:column>
 			<p:column headerText="Opções" style="width: 100px;">
 				<p:commandButton id="btn-visualizar" icon="ui-icon-search"
-						action="#{bean.mostraRequisicao(r.id)}"
-						update=":conteudo" style="width: 30px; height: 30px; float: left;" />
+					action="#{bean.mostraRequisicao(r.id)}" update=":conteudo"
+					style="width: 30px; height: 30px; float: left;" />
 				<p:tooltip for="btn-visualizar" value="Visualizar" />
 			</p:column>
 		</p:dataTable>
 
 	</h:panelGrid>
-	
+
 </ui:composition>

@@ -38,7 +38,7 @@
 				<p:tooltip for="btn-visualizar" value="Visualizar" />
 				<p:commandButton id="btn-imprimir" icon="ui-icon-print" ajax="false"
 					actionListener="#{bean.preparaImpressao(r.id)}"
-					rendered="#{r.status.valor eq 'Autorizada'}"
+					rendered="#{r.status.valor eq 'Autorizada' or r.status.valor eq 'Atendida'}"
 					style="width: 30px; height: 30px;">
 					<p:fileDownload value="#{bean.arquivoRetorno}" />
 				</p:commandButton>

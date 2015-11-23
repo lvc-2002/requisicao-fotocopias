@@ -37,7 +37,6 @@ public class PaginaInicialBean {
 	}
 	
 	public String cadastrar() {
-		System.out.println("Usuário");
 		return "cadastraUsuario?faces-redirect=true";
 	}
 	

@@ -6,9 +6,9 @@
 
 	<h:panelGrid columns="1"
 		style="width: 400px; margin: 0 auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-		
+
 		<p:messages id="msg" closable="true" />
-		
+
 		<p:outputLabel value="Siape: " for="siape" />
 		<p:inputMask id="siape" mask="999999" readonly="true"
 			value="#{bean.usuarioLogado.siape}" style="width: 200px;" />
@@ -21,9 +21,10 @@
 			<p:outputLabel value="Nascimento: " for="nascimento" />
 			<p:outputLabel value="Sexo: " for="sexo" />
 
-			<p:calendar id="nascimento" value="#{bean.usuarioLogado.dataNascimento}" pattern="dd/MM/yyyy" mask="99/99/9999"/>
-			<p:selectOneMenu id="sexo"
-				value="#{bean.usuarioLogado.sexo}" var="s"
+			<p:calendar id="nascimento"
+				value="#{bean.usuarioLogado.dataNascimento}" pattern="dd/MM/yyyy"
+				mask="99/99/9999" />
+			<p:selectOneMenu id="sexo" value="#{bean.usuarioLogado.sexo}" var="s"
 				style="width:210px;">
 				<f:selectItem itemValue="M" itemLabel="Masculino" />
 				<f:selectItem itemValue="F" itemLabel="Feminino" />
@@ -33,17 +34,14 @@
 			<p:outputLabel value="Celular: " for="celular" />
 
 			<p:inputMask id="telefone" mask="(99) 9999-9999"
-				value="#{bean.usuarioLogado.contato.telefone}"
-				style="width:200px;" />
+				value="#{bean.usuarioLogado.contato.telefone}" style="width:200px;" />
 			<p:inputMask id="celular" mask="(99) 99999-9999"
-				value="#{bean.usuarioLogado.contato.celular}"
-				style="width:200px;" />
+				value="#{bean.usuarioLogado.contato.celular}" style="width:200px;" />
 		</h:panelGrid>
 
 		<h:panelGrid columns="1">
 			<p:outputLabel value="E-mail: " for="email" />
-			<p:inputText id="email"
-				value="#{bean.usuarioLogado.contato.email}"
+			<p:inputText id="email" value="#{bean.usuarioLogado.contato.email}"
 				style="width:414px;" />
 
 		</h:panelGrid>
@@ -51,7 +49,7 @@
 		<h:panelGrid columns="2" style="float:right;">
 			<p:commandButton value="Alterar Senha"
 				action="#{bean.mostraAlterarSenha()}" update=":conteudo" />
-				<p:commandButton value="Salvar"
+			<p:commandButton value="Salvar"
 				action="#{bean.alteraDadosCadastrais()}" update="msg" />
 		</h:panelGrid>
 

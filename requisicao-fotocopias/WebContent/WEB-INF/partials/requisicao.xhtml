@@ -30,8 +30,15 @@
 			<p:outputLabel value="Status: " />
 			<h:panelGrid columns="2">
 				<p:outputLabel value="#{bean.requisicao.status.valor}" />
-				<p:outputLabel value="por #{bean.requisicao.autorizador.nome}" rendered="#{bean.requisicao.autorizador != null}" />
+				<p:outputLabel value="por #{bean.requisicao.autorizador.nome}"
+					rendered="#{bean.requisicao.status.valor eq 'Autorizada' or bean.requisicao.status.valor eq 'Não Autorizada'}" />
+				<p:outputLabel value="por #{bean.requisicao.atendente.nome}"
+					rendered="#{bean.requisicao.status.valor eq 'Atendida' or bean.requisicao.status.valor eq 'Não Atendida'}" />
 			</h:panelGrid>
+			<p:outputLabel value="Motivo: " style="color: red;"
+				rendered="#{bean.requisicao.status.valor eq 'Não Autorizada' or bean.requisicao.status.valor eq 'Não Atendida'}" />
+			<p:outputLabel value="#{bean.requisicao.motivo}" style="color: red;"
+				rendered="#{bean.requisicao.status.valor eq 'Não Autorizada' or bean.requisicao.status.valor eq 'Não Atendida'}" />
 		</h:panelGrid>
 
 		<p:dataTable value="#{bean.requisicao.itens}" var="i"
