@@ -420,9 +420,10 @@ public class AutorizadorBean {
 	}
 	
 	public StreamedContent getArquivoRetorno() {
-		String nomeRelatorioSaida = usuarioLogado.getNome() + "-Requisicao-" + requisicao.getId();
+		String nomeRelatorioSaida = requisicao.getNumero().replace("/", "");
 		RelatorioUtil relatorioUtil = new RelatorioUtil();
 		HashMap<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("numero", requisicao.getNumero());
 		parametros.put("solicitante", requisicao.getUsuario().getNome());
 		parametros.put("data", requisicao.getData());
 		parametros.put("autorizador", requisicao.getAutorizador().getNome());
