@@ -30,7 +30,7 @@ persistence.xml
 
 # Configurações do JSF
 faces-config.xml
-faces-config.xml.jsfdia
+.faces-config.xml.jsfdia
 
 # Imagens
 *.jpg
