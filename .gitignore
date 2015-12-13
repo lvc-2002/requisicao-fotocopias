@@ -19,7 +19,10 @@ Servers/
 .classpath
 .project
 .settings/
+<<<<<<< HEAD
 persistence.xml
+=======
+>>>>>>> b62ca8c61bd0f3eb32b5dfc5820d10630d81d7b2
 MANIFEST.MF
 
 RemoteSystemsTempFiles/
