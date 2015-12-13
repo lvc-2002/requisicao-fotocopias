@@ -19,7 +19,6 @@ Servers/
 .classpath
 .project
 .settings/
-/META-INF
 MANIFEST.MF
 
 RemoteSystemsTempFiles/
