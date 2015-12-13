@@ -26,6 +26,7 @@ RemoteSystemsTempFiles/
 
 # Configuração do Banco de Dados
 persistence.xml
+*.sql
 
 # Configurações do JSF
 faces-config.xml
