@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="requisicao-fotocopias"
+		transaction-type="RESOURCE_LOCAL">
+		<class>br.com.lam.model.Autorizador</class>
+		<class>br.com.lam.model.Contato</class>
+		<class>br.com.lam.model.Executante</class>
+		<class>br.com.lam.model.Item</class>
+		<class>br.com.lam.model.Requisicao</class>
+		<class>br.com.lam.model.Solicitante</class>
+		<class>br.com.lam.model.Usuario</class>
+
+		<properties>
+
+			<!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:~/bd_requisicao_fotocopias" 
+				/> <property name="javax.persistence.jdbc.user" value="aluno"/> <property 
+				name="javax.persistence.jdbc.password" value="1234"/> <property name="javax.persistence.jdbc.driver" 
+				value="org.h2.Driver" /> <property name="hibernate.hbm2ddl.auto" value="update" 
+				/> <property name="hibernate.show_sql" value="false" /> <property name="hibernate.format_sql" 
+				value="false" /> -->
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/bd_trabalho" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="lvc_informatica" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="" value="" />
+
+		</properties>
+
+	</persistence-unit>
+
+</persistence>
