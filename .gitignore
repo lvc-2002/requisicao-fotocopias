@@ -31,5 +31,5 @@ faces-config.xml
 *.jpg
 
 # Build
-/build/
-/target/
+requisicao-fotocopias/build/
+requisicao-fotocopias/target/

@@ -197,7 +197,7 @@ public class AtendenteBean {
 		JPAUtil.getEntityManager().getTransaction().commit();MessagesUtil.createMessageInfo(null, "Dados alterados com sucesso!", null);
 	}
 	
-	public void alteraSenha() {
+	public void mostraAlteraSenha() {
 		/*JPAUtil.getEntityManager().getTransaction().begin();
 		UsuarioDAO dao = new UsuarioDAO(getEntityManager());
 		usuarioLogado.setSenha(novaSenha);
